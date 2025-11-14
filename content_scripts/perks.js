@@ -258,7 +258,7 @@ const isHueFocusFulfilled = () => {
   const hasNoRatingClass = document.body.classList.contains('no-rating');
   if (hasNoRatingClass) {
     const bonus = calculateRandomBonus(1, 2);
-    const message = `Hue Focus: ${bonus} points`;
+    const message = `XP Focus: ${bonus} points`;
     showPerkToast('hue-focus', message); 
     console.log(`body has no-rating class, adding ${bonus} hue points to bonus`); 
     return bonus;
