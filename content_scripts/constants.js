@@ -10,13 +10,12 @@ export const materialValues = {
 export const PREPARATION_TIME = 300;
 
 export const TIPS = [
-  "You can earn a bonus [1-2] hue points per win if you have 'Show Player Ratings' turned off in the lichess settings. This can be configured under Lichess preferences, display settings section.",
+  "You can earn a bonus [1-2] XP points per win if you have 'Show Player Ratings' turned off in the lichess settings. This can be configured under Lichess preferences, display settings section.",
   "In the medieval era, it was not uncommon for kings to actively participate in battles and lead their armies into war.",
   "Some perks may not function with Lichess variants due to incompatibilities. The following perks are affected: Opportunist, Equalizer, Endgame Specialist. These perks will work in the Chess960 variant, as it is similar to standard chess.",
-  "Wins in slower time controls award more hue points than wins in shorter time controls.",
-  "You can only earn hue points if you are signed in to Lichess.",
+  "Wins in slower time controls award more XP points than wins in shorter time controls.",
+  "You can only earn XP points if you are signed in to Lichess.",
   "You can look at other tabs while the preparation timer is counting down. Just make sure that it's chess related material so that you're getting the most out of the perk!",
-  "Got feedback? Want to tell everyone about your favorite perk setup? Join the Hue Chess League team: <a href='https://lichess.org/team/hue-chess-league' target='_blank'>Join Team</a>",
 ];
 
 export const PERK_DISPLAY_NAMES = {
@@ -59,6 +58,6 @@ export const MAX_PERKS = 2;
 
 export const LEVEL_CAP = 15;
 
-export const CURRENT_VERSION = '0.9.61';
+export const CURRENT_VERSION = '1.0.00';
 
 export const GLADIATOR_PENALTY = 35;

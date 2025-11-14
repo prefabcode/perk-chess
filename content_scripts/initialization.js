@@ -21,17 +21,17 @@ function createOnboardingModal() {
       <button id="close-hue-onboarding-modal-x" class="close-button" data-icon="" aria-label="Close"></button>
     </div>
     <div class="scrollable dialog-content">
-      <h2>Welcome to Hue Chess!</h2>
-      <p>Hue Chess adds gamification elements to Lichess. With this extension enabled, you'll earn <strong>Hue Points</strong> every time you win a game. These points slightly change the color of your chessboard, and are also used to track your progress throughout each level. </p>
+      <h2>Welcome to Perk Chess!</h2>
+      <p>Perk Chess adds gamification elements to Lichess. With this extension enabled, you'll earn <strong>XP Points</strong> every time you win a game. These points slightly change the color of your chessboard, and are also used to track your progress throughout each level. </p>
       
       <h3>Discover Exciting Perks</h3>
-      <p>Hue Chess features a <strong>Perk System</strong> that boosts the number of Hue Points you earn for every win, in exchange for completing specific challenges on Lichess. As you progress and gain levels in Hue Chess, you'll unlock new perks that provide different ways to accumulate even more Hue Points for your victories!</p>
+      <p>Perk Chess features a <strong>Perk System</strong> that boosts the number of XP Points you earn for every win, in exchange for completing specific challenges on Lichess. As you progress and gain levels in Perk Chess, you'll unlock new perks that provide different ways to accumulate even more XP Points for your victories!</p>
       
-      <h3>Level Up with Hue Points</h3>
-      <p>Each level requires 100 Hue Points, and every level features a unique chessboard theme. Journey through 15 distinct levels, discover 12 unique perks, and complete the Hue Chess Challenge!</p>
+      <h3>Level Up with XP Points</h3>
+      <p>Each level requires 100 XP Points, and every level features a unique chessboard theme. Journey through 15 distinct levels, discover 12 unique perks, and complete the Perk Chess Challenge!</p>
 
       <h3>Get Started</h3>
-      <p>To choose your perks, simply click on the <strong>Hue Progress Bar</strong> in the top right corner of your navigation bar.</p>
+      <p>To choose your perks, simply click on the <strong>XP Progress Bar</strong> in the top right corner of your navigation bar.</p>
       
       <button id="close-hue-onboarding-modal" class="button" style="margin-top: 20px;">Get Started!</button>
     </div>
@@ -55,7 +55,7 @@ function createOnboardingModal() {
 
 
 export const initializeExtension = async () => {
-  console.log("initializeExtension: Initializing hue-chess...");
+  console.log("initializeExtension: Initializing perk-chess...");
   createOnboardingModal();
   await setCompletedBoards(0);
   await setCurrentHue(0);
@@ -68,7 +68,7 @@ export const initializeExtension = async () => {
 };
 
 export const init = async () => {
-  console.log("Init: Running Hue-Chess...");
+  console.log("Init: Running Perk-Chess...");
 
   await checkIfInitialized();
   await versionCheck();
