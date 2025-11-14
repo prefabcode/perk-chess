@@ -53,7 +53,7 @@ export const PERK_METADATA = [
     id: 9,
     internalName: 'gambiteer',
     displayName: 'Gambiteer',
-    description: 'Earn an additional [2-4] XP points for winning a game after playing a known gambit, countergambit, or by queenside castling at any time in the game.'
+    description: 'Earn an additional [3-5] XP points for winning a game after playing a known gambit, countergambit, or by queenside castling at any time in the game.'
   },
   {
     id: 10,
