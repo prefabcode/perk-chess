@@ -93,8 +93,8 @@ export const PERK_UNLOCK_ORDERS = [
   ],
   // Prestige 1
   [
-    { id: 4, level: 1 }, // preparation
-    { id: 8, level: 2 }, // aggression
+    { id: 8, level: 1 }, // aggression
+    { id: 4, level: 2 }, // preparation
     { id: 7, level: 3 }, // equalizer
     { id: 11, level: 4 }, // berzerker
     { id: 9, level: 5 }, // gambiteer 
@@ -108,8 +108,8 @@ export const PERK_UNLOCK_ORDERS = [
   ],
   // Prestige 2
   [
-    { id: 4, level: 1 }, // preparation
-    { id: 12, level: 2 }, // versatility
+    { id: 12, level: 1 }, // versatility
+    { id: 4, level: 2 }, // preparation
     { id: 1, level: 3, }, // opportunist
     { id: 7, level: 4 }, // equalizer
     { id: 9, level: 5 }, // gambiteer
@@ -123,8 +123,8 @@ export const PERK_UNLOCK_ORDERS = [
   ],
   // Prestige 3
   [
-    { id: 4, level: 1 }, // preparation
-    { id: 10, level: 2 }, // gladiator
+    { id: 10, level: 1 }, // gladiator
+    { id: 4, level: 2 }, // preparation
     { id: 7, level: 3 }, // equalizer
     { id: 2, level: 4, }, // endgame specialist
     { id: 6, level: 5 }, // rivalry
@@ -138,8 +138,8 @@ export const PERK_UNLOCK_ORDERS = [
   ],
   // Prestige 4
   [
-    { id: 4, level: 1 }, // preparation
-    { id: 11, level: 2 }, // berzerker 
+    { id: 11, level: 1 }, // berzerker 
+    { id: 4, level: 2 }, // preparation
     { id: 8, level: 3 }, // aggression
     { id: 10, level: 4 }, // gladiator
     { id: 5, level: 5 }, // king's gambit
