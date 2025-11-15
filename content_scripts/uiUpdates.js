@@ -364,7 +364,7 @@ const openSettingsModal = async () => {
 
           navigator.clipboard.writeText(jsonString);
 
-          alert('Hue chess profile string copied to clipboard');
+          alert('Perk chess profile string copied to clipboard');
         });
       });
 
