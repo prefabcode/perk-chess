@@ -201,7 +201,7 @@ const isGambiteerFulfilled = (userName, game) => {
   const moves = game.moves;
 
   if (opening.toLowerCase().includes('gambit')) {
-    const bonus = calculateRandomBonus(2, 4);
+    const bonus = calculateRandomBonus(3, 5);
     console.log(`Gambiteer bonus points: ${bonus}`);
     const message = `Gambiteer: ${bonus} points`;
     showPerkToast('gambiteer', message);
@@ -258,7 +258,7 @@ const isHueFocusFulfilled = () => {
   const hasNoRatingClass = document.body.classList.contains('no-rating');
   if (hasNoRatingClass) {
     const bonus = calculateRandomBonus(1, 2);
-    const message = `Hue Focus: ${bonus} points`;
+    const message = `XP Focus: ${bonus} points`;
     showPerkToast('hue-focus', message); 
     console.log(`body has no-rating class, adding ${bonus} hue points to bonus`); 
     return bonus;
@@ -624,7 +624,7 @@ export const calculatePerkBonuses = async (initialIncrementValue, gameType, game
   bonus += isBongcloudFulfilled(userName, game);
   bonus += await isHotStreakFulfilled();
 
-  const message = `Total Hue Earned: ${initialIncrementValue + bonus} points`;
+  const message = `Total XP Earned: ${initialIncrementValue + bonus} points`;
   showPerkToast('total-earned', message);
   return bonus;
 };

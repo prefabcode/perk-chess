@@ -193,7 +193,7 @@ export const openPerksModal = async () => {
 
         if (perk === 'gladiator') {
           if (!isActive) {
-            const confirmSelection = confirm("Warning: You will not be able to remove the Gladiator perk until you level up or suffer the hue point penalty. Do you want to proceed?");
+            const confirmSelection = confirm("Warning: You will not be able to remove the Gladiator perk until you level up or suffer the XP point penalty. Do you want to proceed?");
             if (!confirmSelection) {
               return;
             } else {
@@ -203,7 +203,7 @@ export const openPerksModal = async () => {
           } else {
             const canRemove = await getAllowGladiatorPerkRemoval();
             if (!canRemove) {
-              alert("You cannot remove the Gladiator perk until you level up or suffer the hue point penalty.");
+              alert("You cannot remove the Gladiator perk until you level up or suffer the XP point penalty.");
               return;
             }
           }
@@ -364,7 +364,7 @@ const openSettingsModal = async () => {
 
           navigator.clipboard.writeText(jsonString);
 
-          alert('Hue chess profile string copied to clipboard');
+          alert('Perk chess profile string copied to clipboard');
         });
       });
 
