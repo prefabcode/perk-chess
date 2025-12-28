@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Perk Chess",
-    "version": "1.0.00",
+    "version": "1.0.01",
     "description": "Gamification mod that adds colors, xp points, levels, and unlockable perks to lichess.org.",
     "permissions": [
         "activeTab",
