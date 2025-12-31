@@ -310,7 +310,7 @@ export const updatePerksHeader = async () => {
   const activePerks = await getActivePerks();
   const perksHeader = document.getElementById('perks-header');
   if (perksHeader) {
-    perksHeader.textContent = `Select Perks: (${activePerks.length}/${MAX_PERKS})`;
+    perksHeader.textContent = `Perk Selection (${activePerks.length}/${MAX_PERKS})`;
   }
 }
 

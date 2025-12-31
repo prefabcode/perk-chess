@@ -4,13 +4,24 @@
     </div>
     <div class="scrollable">
       <div class="dialog-content">
-        <h2>Perk Selection</h2>
+        <h2 id="perks-header">Perk Selection (O/2)</h2>
   
         <div class="progress-info">
-          Level: <span id="current-level"></span> | XP Points: <span id="hue-points"></span> <span id="prestige-container"></span>
+          Level: <span id="current-level"></span> | XP Points: <span id="hue-points"></span>
+          
         </div>
-  
-        <h3 id="perks-header">Select Perks: (0/2)</h3>
+        
+        <div>
+          Unlock Order: 
+          <select id="unlock-order-dropdown">
+            <option value="0">Classic</option>
+            <option value="1" disabled>Aggressive</option>
+            <option value="2" disabled>Balanced</option>
+            <option value="3" disabled>Gladiator</option>
+            <option value="4" disabled>Berserker</option>
+          </select>
+        </div>
+
         <div id="perks-container" class="perks">
 
         </div>
