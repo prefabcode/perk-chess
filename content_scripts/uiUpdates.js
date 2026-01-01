@@ -182,8 +182,15 @@ const setPerkModalEventHandlers = async () => {
     const selectedOrder = parseInt(event.target.value, 10);
     await setSelectedUnlockOrder(selectedOrder);
     await updatePerksUnlockOrder();
+    await setImageSources();
+    await setActivePerkEventHandler();
   });
 
+  await setActivePerkEventHandler();
+
+}
+
+const setActivePerkEventHandler = async () => {
   const perkBoxes = document.querySelectorAll('.perks .perk-box');
   perkBoxes.forEach(box => {
     box.addEventListener('click', async () => {
@@ -237,7 +244,6 @@ const setPerkModalEventHandlers = async () => {
       }
     });
   });
-
 }
 
 const updatePerksUnlockOrder = async () => {
