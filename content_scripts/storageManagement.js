@@ -243,3 +243,20 @@ export const setCurrentHue = (currentHue) => {
     resolve();
   })
 };
+
+export const getSelectedUnlockOrder = () => {
+  return new Promise((resolve) => {
+    browser.storage.local.get(['selectedUnlockOrder'], (result) => {
+      resolve(result.selectedUnlockOrder || 0);
+    });
+  });
+};
+
+export const setSelectedUnlockOrder = (order) => {
+  return new Promise((resolve) => {
+    browser.storage.local.set({ selectedUnlockOrder: order }, () => {
+      resolve();
+    });
+  });
+};
+
