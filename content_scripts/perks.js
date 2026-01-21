@@ -184,7 +184,7 @@ const isBongcloudFulfilled = (userName, game) => {
 
   if (secondMove.startsWith('K')) {
     console.log('King move detected on move 2. Bongcloud bonus applied');
-    const bonus = 1;
+    const bonus = calculateRandomBonus(1, 2);
     console.log(`Bongcloud bonus points: ${bonus}`);
     const message = `Bongcloud: ${bonus} points`;
     showPerkToast('bongcloud', message);
