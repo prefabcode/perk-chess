@@ -172,12 +172,14 @@
 #hue-chess-settings-modal {
   width: 500px;
   font-family: 'Roboto', 'Noto Sans', sans-serif;
+  padding: 20px;
 }
 
 #hue-chess-settings-modal .dialog-content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 #hue-chess-settings-modal .section {
@@ -232,20 +234,17 @@
 
 #hue-chess-perks-modal {
   max-width: 720px;
+  padding: 20px;
 }
 
-#hue-chess-perks-modal .progress-info {
+#hue-chess-perks-modal #perk-progress-info {
   font-size: 16px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-#hue-chess-perks-modal .progress-info #prestige-container {
+#hue-chess-perks-modal #perk-progress-info #prestige-container {
   display: none;
-}
-
-#hue-chess-perks-modal #perks-header {
-  font-size: 18px;
 }
 
 #hue-chess-perks-modal .flash {
@@ -253,11 +252,13 @@
   padding: 1em 2em;
   background: var(--c-good);
   border-radius: 3px;
+  text-align: center;
 }
 
 #hue-chess-perks-modal .flash-quiet {
   background: var(--c-bg-zebra);
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12)
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+  text-align: center;
 }
 
 #hue-chess-perks-modal .flash-quiet::before {
@@ -272,6 +273,8 @@
   width: 600px;
   z-index: 1000;
   top: 40%;
+  padding: 20px;
+  text-align: center;
 }
 
 #hue-onboarding-modal h3, #hue-challenge-completion-modal h3 {
@@ -283,8 +286,124 @@
   margin-bottom: 10px;
 }
 
+#perks-header, #perk-progress-info  {
+  justify-self: center;
+}
+
 cg-board {
   visibility: hidden;
 }
 
+html.transp dialog.hue-modal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+dialog.hue-modal {
+    box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);
+    border-radius: 6px;
+    position: fixed;
+    max-height: 100%;
+    max-width: 100%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    border: none;
+    outline: none;
+    background: var(--c-bg-high);
+    z-index: 111;
+}
+
+html:not([dir=rtl]) dialog.hue-modal {
+    left: 50%;
+}
+
+html[dir=rtl] dialog.hue-modal {
+    right: 50%;
+    transform: translate(50%, -50%);
+}
+
+dialog.hue-modal:has(.dialog-content.alert) {
+    z-index: 200;
+}
+
+dialog.hue-modal::backdrop {
+    background: var(--c-page-mask);
+}
+
+dialog.hue-modal > div.scrollable {
+    max-height: calc(var(---viewport-height) - 16px);
+    overflow-x: clip;
+    overflow-y: auto;
+}
+
+dialog.hue-modal div.close-button-anchor {
+    position: relative;
+    width: 100%;
+    height: 0;
+}
+
+dialog.hue-modal button.close-button {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+    position: absolute;
+    top: 4px;
+    width: 40px;
+    height: 40px;
+    z-index: 112;
+    background: var(--c-bg-high);
+    color: var(--c-font);
+    border-radius: 6px;
+    border: 1px solid var(--c-border);
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+dialog.hue-modal button.close-button:not(:focus) {
+    outline: none;
+}
+
+html:not([dir=rtl]) dialog.hue-modal button.close-button {
+    right: 4px;
+}
+
+html[dir=rtl] dialog.hue-modal button.close-button {
+    left: 4px;
+}
+
+dialog.hue-modal:not(.touch-scroll) {
+    margin-top: 16px;
+    overflow: visible;
+}
+
+dialog.hue-modal:not(.touch-scroll) button.close-button {
+    transform: translate(18px, -18px);
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    border-radius: 50%;
+    border: none;
+}
+
+html[dir=rtl] dialog.hue-modal:not(.touch-scroll) button.close-button {
+    transform: translate(-18px, -18px);
+}
+
+dialog.hue-modal:not(.touch-scroll) button.close-button:hover {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),
+                0 3px 1px -2px rgba(0,0,0,.2),
+                0 1px 5px 0 rgba(0,0,0,.12);
+    background: var(--c-bad);
+    color: #fff;
+}
 
