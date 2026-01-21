@@ -172,12 +172,14 @@
 #hue-chess-settings-modal {
   width: 500px;
   font-family: 'Roboto', 'Noto Sans', sans-serif;
+  padding: 20px;
 }
 
 #hue-chess-settings-modal .dialog-content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 #hue-chess-settings-modal .section {
