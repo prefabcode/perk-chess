@@ -184,6 +184,7 @@ const setPerkModalEventHandlers = async () => {
     await updatePerksUnlockOrder();
     await setImageSources();
     await setActivePerkEventHandler();
+    await updatePerksModalContent();
   });
 
   await setActivePerkEventHandler();
