@@ -14,6 +14,7 @@ import { getCompletedBoards, getCurrentHue, setCompletedBoards, setCurrentHue } 
 function createOnboardingModal() {
   const dialog = document.createElement('dialog');
   dialog.id = 'hue-onboarding-modal';
+  dialog.classList.add('hue-modal');
   
   const content = document.createElement('div');
   content.innerHTML = `

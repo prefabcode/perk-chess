@@ -1,16 +1,15 @@
-<dialog id="hue-chess-perks-modal">
+<dialog id="hue-chess-perks-modal" class="hue-modal">
     <div class="close-button-anchor">
       <button id="close-perks-modal" class="close-button" data-icon="" aria-label="Close"></button>
     </div>
     <div class="scrollable">
       <div class="dialog-content">
-        <h2 id="perks-header">Perk Selection (O/2)</h2>
+        <h2 id="perks-header">Perk Selection</h2>
   
-        <div class="progress-info">
-          Level: <span id="current-level"></span> | XP Points: <span id="hue-points"></span>
-          
+        <div id="perk-progress-info">
+          Level: <span id="current-level"></span> | XP Points: <span id="hue-points"></span> <span id="prestige-container"></span>
         </div>
-        
+
         <div>
           Unlock Order: 
           <select id="unlock-order-dropdown">
@@ -21,7 +20,7 @@
             <option value="4">Berserker</option>
           </select>
         </div>
-
+  
         <div id="perks-container" class="perks">
 
         </div>
