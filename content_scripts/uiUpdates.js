@@ -8,10 +8,13 @@ import {
   getPreparationStatus,
   setPreparationStatus,
   getPlayingId,
-  getPrestige,
   confirmResetAllSettings,
   getSelectedUnlockOrder,
   setSelectedUnlockOrder,
+  getCurrentHue, 
+  getCompletedBoards,
+  resetProgress,
+  resetActivePerks
 } from './storageManagement.js';
 import { showPerkToast } from './perks.js';
 import { PREPARATION_TIME, TIPS, PERK_DISPLAY_NAMES, MAX_PERKS, browser, BOARD_LEVEL_MAP } from './constants.js';
@@ -179,6 +182,18 @@ const setPerkModalEventHandlers = async () => {
   const unlockOrderDropdown = document.querySelector('#unlock-order-dropdown');
 
   unlockOrderDropdown.addEventListener('change', async (event) => {
+    const currentHue = await getCurrentHue();
+    const completedBoards = await getCompletedBoards();
+
+    if (currentHue > 0 || completedBoards > 0) {
+      const confirmReset = confirm('Changing Specialization will reset your accumulated XP and return you to level 1. Are you sure you want to proceed?');
+      if (confirmReset) {
+        await resetProgress(false);
+      }
+    } else {
+      await resetActivePerks();
+    }
+    
     const selectedOrder = parseInt(event.target.value, 10);
     await setSelectedUnlockOrder(selectedOrder);
     await updatePerksUnlockOrder();
