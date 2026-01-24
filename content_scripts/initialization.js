@@ -9,7 +9,7 @@ import {
   browser, 
   CURRENT_VERSION 
 } from './constants.js';
-import { getCompletedBoards, getCurrentHue, setCompletedBoards, setCurrentHue } from './storageManagement.js';
+import { getCompletedBoards, getCurrentHue, setCompletedBoards, setCurrentHue, setSelectedUnlockOrder } from './storageManagement.js';
 
 function createOnboardingModal() {
   const dialog = document.createElement('dialog');
@@ -60,6 +60,7 @@ export const initializeExtension = async () => {
   createOnboardingModal();
   await setCompletedBoards(0);
   await setCurrentHue(0);
+  await setSelectedUnlockOrder(0);
 
   return new Promise((resolve) => {
     browser.storage.local.set({ initialized: true }, () => {
