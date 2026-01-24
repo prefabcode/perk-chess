@@ -305,6 +305,9 @@ export const updatePerksModalContent = async () => {
       const prestigeContainer = document.getElementById('prestige-container');
       prestigeContainer.innerText = `| Prestige: ${prestige}`;
       prestigeContainer.style.display = 'inline';
+
+      const specContainer = document.getElementById('specialization-container');
+      specContainer.style.display = 'block';
     }
 
     // Set active perks and handle locked perks

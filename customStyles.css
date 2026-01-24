@@ -407,3 +407,7 @@ dialog.hue-modal:not(.touch-scroll) button.close-button:hover {
     color: #fff;
 }
 
+#specialization-container {
+  display: none;
+  text-align: center;
+}
