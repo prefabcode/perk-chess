@@ -28,6 +28,12 @@ export const resetProgress = async (clearPrestige = false) => {
     initialized: true,
     completedBoards: 0,
     currentHue: 0,
+    activePerks: [],
+    gladiatorLossBuffer: 1,
+    allowGladiatorPerkRemoval: true,
+    playedOpenings: [],
+    winningStreak: 0,
+    preparationStatus: false,
   };
 
   if (clearPrestige) {
@@ -35,8 +41,6 @@ export const resetProgress = async (clearPrestige = false) => {
   } else {
     resetState.prestige = await getPrestige();
   }
-
-  await resetActivePerks();
   
   return new Promise((resolve) => {
     browser.storage.local.set(resetState, async () => {
@@ -261,9 +265,18 @@ export const setSelectedUnlockOrder = (order) => {
   });
 };
 
-export const resetActivePerks = () => {
-  // TODO: this function should also reset state associated with perks. 
+export const resetPerksAndSideEffects = async () => {
+  const resetState = {
+    activePerks: [],
+    gladiatorLossBuffer: 1,
+    allowGladiatorPerkRemoval: true,
+    playedOpenings: [],
+    winningStreak: 0,
+    preparationStatus: false,
+  };
+  
   return new Promise((resolve) => {
-    browser.storage.local.set({ activePerks: []}, () => resolve());
+    browser.storage.local.set({ ...resetState }, () => resolve());
   });
 }
+

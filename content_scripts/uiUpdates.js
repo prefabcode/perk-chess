@@ -14,7 +14,7 @@ import {
   getCurrentHue, 
   getCompletedBoards,
   resetProgress,
-  resetActivePerks
+  resetPerksAndSideEffects
 } from './storageManagement.js';
 import { showPerkToast } from './perks.js';
 import { PREPARATION_TIME, TIPS, PERK_DISPLAY_NAMES, MAX_PERKS, browser, BOARD_LEVEL_MAP } from './constants.js';
@@ -174,6 +174,9 @@ export const openPerksModal = async () => {
 }
 
 const setPerkModalEventHandlers = async () => {
+  const modal = document.querySelector('#hue-chess-perks-modal');
+  if (!modal) return;
+
   document.getElementById('close-perks-modal').addEventListener('click', () => {
     document.body.style.overflowY = 'scroll';
     modal.close();
@@ -191,7 +194,7 @@ const setPerkModalEventHandlers = async () => {
         await resetProgress(false);
       }
     } else {
-      await resetActivePerks();
+      await resetPerksAndSideEffects();
     }
     
     const selectedOrder = parseInt(event.target.value, 10);
