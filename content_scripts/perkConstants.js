@@ -114,44 +114,28 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 7, level: 4 }, // equalizer
     { id: 11, level: 5 }, // berzerker
     { id: 5, level: 6 }, // king's gambit
-    { id: 12, level: 7 }, // versatility
-    { id: 6, level: 8 }, // rivalry 
-    { id: 10, level: 9 }, // gladiator
-    { id: 1, level: 10, }, // opportunist
-    { id: 3, level: 11, }, // knight moves
-    { id: 2, level: 13, }, // endgame specialist
-  ],
-  // Prestige 2
-  [
-    { id: 12, level: 1 }, // versatility
-    { id: 4, level: 2 }, // preparation
-    { id: 1, level: 3, }, // opportunist
-    { id: 7, level: 4 }, // equalizer
-    { id: 9, level: 5 }, // gambiteer
-    { id: 6, level: 5 }, // rivalry 
-    { id: 3, level: 6, }, // knight moves
-    { id: 5, level: 7 }, // king's gambit
-    { id: 2, level: 8, }, // endgame specialist
-    { id: 8, level: 9 }, // aggression
-    { id: 10, level: 11 }, // gladiator 
-    { id: 11, level: 13 }, // berzerker
-  ],
-  // Prestige 4
-  [
-    { id: 11, level: 1 }, // berzerker 
-    { id: 4, level: 2 }, // preparation
-    { id: 8, level: 3 }, // aggression
-    { id: 10, level: 4 }, // gladiator
-    { id: 5, level: 5 }, // king's gambit
-    { id: 6, level: 6 }, // rivalry
-    { id: 1, level: 7, }, // opportunist
+    { id: 3, level: 7 }, // knight moves
     { id: 12, level: 8 }, // versatility
-    { id: 9, level: 9 }, // gambiteer
-    { id: 7, level: 10 }, // equalizer
-    { id: 2, level: 11, }, // endgame specialist
-    { id: 3, level: 13, }, // knight moves
+    { id: 6, level: 9 }, // rivalry 
+    { id: 10, level: 10 }, // gladiator
+    { id: 1, level: 11 }, // opportunist
+    { id: 2, level: 13 }, // endgame specialist
   ],
-
+  // Chaos Agent
+  [
+    { id: 5, level: 1 }, // king's gambit
+    { id: 2, level: 2, }, // endgame specialist
+    { id: 11, level: 3 }, // berzerker
+    { id: 3, level: 4, }, // knight moves
+    { id: 12, level: 5 }, // versatility
+    { id: 7, level: 6 }, // equalizer
+    { id: 1, level: 7, }, // opportunist
+    { id: 4, level: 8 }, // preparation
+    { id: 10, level: 9 }, // gladiator 
+    { id: 6, level: 10 }, // rivalry 
+    { id: 8, level: 11 }, // aggression
+    { id: 9, level: 13 }, // gambiteer
+  ],
 ]
 
 
