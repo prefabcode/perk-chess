@@ -14,21 +14,17 @@ export const confirmResetProgress = async () => {
   }
 };
 
-export const confirmResetAllSettings = async () => {
-    const confirmReset = confirm('Are you sure you want to reset all settings? Warning: This action will return you to level 1 and clear your prestige rank. This action cannot be undone.');
-    if (confirmReset) {
-      await resetProgress(true);
-      const prestigeContainer = document.getElementById('prestige-container');
-      if (prestigeContainer) { prestigeContainer.style.display = 'none'; }
-    }
-};
-
 export const resetProgress = async (clearPrestige = false) => {
   const resetState = {
     initialized: true,
     completedBoards: 0,
     currentHue: 0,
     activePerks: [],
+    gladiatorLossBuffer: 1,
+    allowGladiatorPerkRemoval: true,
+    playedOpenings: [],
+    winningStreak: 0,
+    preparationStatus: false,
   };
 
   if (clearPrestige) {
@@ -243,3 +239,35 @@ export const setCurrentHue = (currentHue) => {
     resolve();
   })
 };
+
+export const getSelectedUnlockOrder = () => {
+  return new Promise((resolve) => {
+    browser.storage.local.get(['selectedUnlockOrder'], (result) => {
+      resolve(result.selectedUnlockOrder || 0);
+    });
+  });
+};
+
+export const setSelectedUnlockOrder = (order) => {
+  return new Promise((resolve) => {
+    browser.storage.local.set({ selectedUnlockOrder: order }, () => {
+      resolve();
+    });
+  });
+};
+
+export const resetPerksAndSideEffects = async () => {
+  const resetState = {
+    activePerks: [],
+    gladiatorLossBuffer: 1,
+    allowGladiatorPerkRemoval: true,
+    playedOpenings: [],
+    winningStreak: 0,
+    preparationStatus: false,
+  };
+  
+  return new Promise((resolve) => {
+    browser.storage.local.set({ ...resetState }, () => resolve());
+  });
+}
+

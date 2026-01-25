@@ -8,8 +8,12 @@ import {
   getPreparationStatus,
   setPreparationStatus,
   getPlayingId,
-  getPrestige,
-  confirmResetAllSettings,
+  getSelectedUnlockOrder,
+  setSelectedUnlockOrder,
+  getCurrentHue, 
+  getCompletedBoards,
+  resetProgress,
+  resetPerksAndSideEffects
 } from './storageManagement.js';
 import { showPerkToast } from './perks.js';
 import { PREPARATION_TIME, TIPS, PERK_DISPLAY_NAMES, MAX_PERKS, browser, BOARD_LEVEL_MAP } from './constants.js';
@@ -140,6 +144,7 @@ export const openPerksModal = async () => {
       return;
     }
 
+    // inject empty perks modal into dom 
     const response = await fetch(browser.runtime.getURL('perks.html'));
     const data = await response.text();
 
@@ -147,96 +152,142 @@ export const openPerksModal = async () => {
     tempDiv.innerHTML = data;
 
     modal = tempDiv.querySelector('#hue-chess-perks-modal');
-    const perksContainer = modal.querySelector('#perks-container');
-    const prestigeLevel = await getPrestige();
-    const unlockOrderIndex = prestigeLevel % PERK_UNLOCK_ORDERS.length;
-    const unlockOrder = PERK_UNLOCK_ORDERS[unlockOrderIndex];
-   
-    let perkContainerHtmlStr = '';
-    
-    unlockOrder.forEach((unlockMetadata) => {
-      const perkMetadata = PERK_METADATA.find(perk => perk.id === unlockMetadata.id);
-      let perkRawHtml = PERK_MARKUP_TEMPLATE
-        .replaceAll('{internalName}', perkMetadata.internalName)
-        .replaceAll('{displayName}', perkMetadata.displayName)
-        .replaceAll('{description}', perkMetadata.description)
-        .replaceAll('{unlockLevel}', unlockMetadata.level);
-      perkContainerHtmlStr += perkRawHtml;
-    });
-
-    perksContainer.innerHTML = perkContainerHtmlStr;
 
     document.body.appendChild(modal);
 
-    document.body.style.overflowY = 'hidden';
-    modal.showModal();
-
-    document.getElementById('close-perks-modal').addEventListener('click', () => {
-      document.body.style.overflowY = 'scroll';
-      modal.close();
-    });
-
-    const perkBoxes = document.querySelectorAll('.perks .perk-box');
-    perkBoxes.forEach(box => {
-      box.addEventListener('click', async () => {
-        const playingId = await getPlayingId();
-        if (playingId) {
-          alert("You cannot select perks while a game is in progress.");
-          return;
-        }
-        
-        if (box.classList.contains('locked')) {
-          return;
-        }
-        const perk = box.id.replace('-perk', '');
-        const isActive = box.classList.contains('active');
-
-        if (perk === 'gladiator') {
-          if (!isActive) {
-            const confirmSelection = confirm("Warning: You will not be able to remove the Gladiator perk until you level up or suffer the XP point penalty. Do you want to proceed?");
-            if (!confirmSelection) {
-              return;
-            } else {
-              await resetGladiatorLossBuffer();
-              await setAllowGladiatorPerkRemoval(false);
-            }
-          } else {
-            const canRemove = await getAllowGladiatorPerkRemoval();
-            if (!canRemove) {
-              alert("You cannot remove the Gladiator perk until you level up or suffer the XP point penalty.");
-              return;
-            }
-          }
-        }
-
-        if (perk === 'preparation') {
-          await setPreparationStatus(false);
-          const timerElement = document.querySelector('#analysis-timer');
-          if (!isActive && document.querySelector('.analyse__board.main-board')) {
-            startAnalysisTimer(PREPARATION_TIME);
-          } else if (isActive && timerElement) {
-            timerElement.remove();
-          }
-        }
-        
-        const activePerks = await getActivePerks();
-
-        if (!isActive && activePerks.length >= MAX_PERKS) {
-          alert(`You can only select up to ${MAX_PERKS} perks.`);
-        } else {
-          await updateActivePerks(perk, !isActive);
-          box.classList.toggle('active');
-        }
-      });
-    });
-
+    // dynamically build perk modal component
+    await updatePerksUnlockOrder();
+    await setPerkModalEventHandlers();
     await setImageSources();
     await updatePerksModalContent();
     await updatePerksHeader();
     showRandomTip();
+
+    // show modal
+    document.body.style.overflowY = 'hidden';
+    modal.showModal();
+
   } catch (error) {
     console.error("Error opening perks modal:", error);
   }
+}
+
+const setPerkModalEventHandlers = async () => {
+  const modal = document.querySelector('#hue-chess-perks-modal');
+  if (!modal) return;
+
+  document.getElementById('close-perks-modal').addEventListener('click', () => {
+    document.body.style.overflowY = 'scroll';
+    modal.close();
+  });
+
+  const unlockOrderDropdown = document.querySelector('#unlock-order-dropdown');
+
+  unlockOrderDropdown.addEventListener('change', async (event) => {
+    const currentHue = await getCurrentHue();
+    const completedBoards = await getCompletedBoards();
+
+    if (currentHue > 0 || completedBoards > 0) {
+      const confirmReset = confirm('Changing Specialization will reset your accumulated XP and return you to level 1. Are you sure you want to proceed?');
+      if (confirmReset) {
+        await resetProgress(false);
+      }
+    } else {
+      await resetPerksAndSideEffects();
+    }
+    
+    const selectedOrder = parseInt(event.target.value, 10);
+    await setSelectedUnlockOrder(selectedOrder);
+    await updatePerksUnlockOrder();
+    await setImageSources();
+    await setActivePerkEventHandler();
+    await updatePerksModalContent();
+    await updatePerksHeader();
+  });
+
+  await setActivePerkEventHandler();
+
+}
+
+const setActivePerkEventHandler = async () => {
+  const perkBoxes = document.querySelectorAll('.perks .perk-box');
+  perkBoxes.forEach(box => {
+    box.addEventListener('click', async () => {
+      const playingId = await getPlayingId();
+      if (playingId) {
+        alert("You cannot select perks while a game is in progress.");
+        return;
+      }
+      
+      if (box.classList.contains('locked')) {
+        return;
+      }
+      const perk = box.id.replace('-perk', '');
+      const isActive = box.classList.contains('active');
+
+      if (perk === 'gladiator') {
+        if (!isActive) {
+          const confirmSelection = confirm("Warning: You will not be able to remove the Gladiator perk until you level up or suffer the XP point penalty. Do you want to proceed?");
+          if (!confirmSelection) {
+            return;
+          } else {
+            await resetGladiatorLossBuffer();
+            await setAllowGladiatorPerkRemoval(false);
+          }
+        } else {
+          const canRemove = await getAllowGladiatorPerkRemoval();
+          if (!canRemove) {
+            alert("You cannot remove the Gladiator perk until you level up or suffer the XP point penalty.");
+            return;
+          }
+        }
+      }
+
+      if (perk === 'preparation') {
+        await setPreparationStatus(false);
+        const timerElement = document.querySelector('#analysis-timer');
+        if (!isActive && document.querySelector('.analyse__board.main-board')) {
+          startAnalysisTimer(PREPARATION_TIME);
+        } else if (isActive && timerElement) {
+          timerElement.remove();
+        }
+      }
+      
+      const activePerks = await getActivePerks();
+
+      if (!isActive && activePerks.length >= MAX_PERKS) {
+        alert(`You can only select up to ${MAX_PERKS} perks.`);
+      } else {
+        await updateActivePerks(perk, !isActive);
+        box.classList.toggle('active');
+      }
+    });
+  });
+}
+
+const updatePerksUnlockOrder = async () => {
+  const modal = document.querySelector('#hue-chess-perks-modal');
+  if (!modal) return;
+  const perksContainer = modal.querySelector('#perks-container');
+  const selectedUnlockOrder = await getSelectedUnlockOrder();
+  
+  const unlockOrder = PERK_UNLOCK_ORDERS[selectedUnlockOrder];
+  const unlockOrderDropdown = modal.querySelector('#unlock-order-dropdown');
+  
+  unlockOrderDropdown.value = selectedUnlockOrder;
+  
+  let perkContainerHtmlStr = '';
+  unlockOrder.forEach((unlockMetadata) => {
+    const perkMetadata = PERK_METADATA.find(perk => perk.id === unlockMetadata.id);
+    let perkRawHtml = PERK_MARKUP_TEMPLATE
+      .replaceAll('{internalName}', perkMetadata.internalName)
+      .replaceAll('{displayName}', perkMetadata.displayName)
+      .replaceAll('{description}', perkMetadata.description)
+      .replaceAll('{unlockLevel}', unlockMetadata.level);
+    perkContainerHtmlStr += perkRawHtml;
+  });
+
+  perksContainer.innerHTML = perkContainerHtmlStr;
 }
 
 export const updatePerksModalContent = async () => {
@@ -254,6 +305,9 @@ export const updatePerksModalContent = async () => {
       const prestigeContainer = document.getElementById('prestige-container');
       prestigeContainer.innerText = `| Prestige: ${prestige}`;
       prestigeContainer.style.display = 'inline';
+
+      const specContainer = document.getElementById('specialization-container');
+      specContainer.style.display = 'block';
     }
 
     // Set active perks and handle locked perks
@@ -346,7 +400,6 @@ const openSettingsModal = async () => {
     });
 
     document.getElementById('reset-progress').addEventListener('click', confirmResetProgress);
-    document.getElementById('reset-all').addEventListener('click', confirmResetAllSettings);
 
     if (process.env.NODE_ENV !== 'production') {
       document.getElementById('dev-tools').style.display = 'block';
