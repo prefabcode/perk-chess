@@ -204,7 +204,6 @@ const setPerkModalEventHandlers = async () => {
     await setActivePerkEventHandler();
     await updatePerksModalContent();
     await updatePerksHeader();
-    tippy('.perk-box').forEach(instance => instance.destroy());
   });
 
   await setActivePerkEventHandler();
