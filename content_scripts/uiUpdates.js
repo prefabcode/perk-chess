@@ -8,7 +8,6 @@ import {
   getPreparationStatus,
   setPreparationStatus,
   getPlayingId,
-  confirmResetAllSettings,
   getSelectedUnlockOrder,
   setSelectedUnlockOrder,
   getCurrentHue, 
