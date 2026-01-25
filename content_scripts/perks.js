@@ -127,19 +127,19 @@ const isGladiatorFulfilled = (gameType) => {
   let bonus = 0;
   switch (gameType) {
     case 'UltraBullet': 
-      bonus = calculateRandomBonus(8, 9);
+      bonus = calculateRandomBonus(16, 18);
       break;
     case 'Bullet':
-      bonus = calculateRandomBonus(7, 8);
+      bonus = calculateRandomBonus(14, 16);
       break;
     case 'Blitz':
-      bonus = calculateRandomBonus(6, 7);
+      bonus = calculateRandomBonus(12, 14);
       break;
     case 'Rapid':
-      bonus = calculateRandomBonus(5, 6);
+      bonus = calculateRandomBonus(10, 12);
       break;
     default: 
-      bonus = calculateRandomBonus(4, 5);
+      bonus = calculateRandomBonus(12, 14);
       break;
   }
   const message = `Gladiator: ${bonus} points`;
