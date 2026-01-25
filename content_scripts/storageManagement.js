@@ -14,15 +14,6 @@ export const confirmResetProgress = async () => {
   }
 };
 
-export const confirmResetAllSettings = async () => {
-    const confirmReset = confirm('Are you sure you want to reset all settings? Warning: This action will return you to level 1 and clear your prestige rank. This action cannot be undone.');
-    if (confirmReset) {
-      await resetProgress(true);
-      const prestigeContainer = document.getElementById('prestige-container');
-      if (prestigeContainer) { prestigeContainer.style.display = 'none'; }
-    }
-};
-
 export const resetProgress = async (clearPrestige = false) => {
   const resetState = {
     initialized: true,

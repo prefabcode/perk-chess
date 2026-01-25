@@ -401,7 +401,6 @@ const openSettingsModal = async () => {
     });
 
     document.getElementById('reset-progress').addEventListener('click', confirmResetProgress);
-    document.getElementById('reset-all').addEventListener('click', confirmResetAllSettings);
 
     if (process.env.NODE_ENV !== 'production') {
       document.getElementById('dev-tools').style.display = 'block';
