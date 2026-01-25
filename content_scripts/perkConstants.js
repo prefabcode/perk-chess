@@ -76,7 +76,7 @@ export const PERK_METADATA = [
 ]
 
 export const PERK_UNLOCK_ORDERS = [
-  // Prestige 0
+  // Classic
   [
     { id: 1, level: 1, },
     { id: 2, level: 2, },
@@ -91,20 +91,35 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 11, level: 11 },
     { id: 12, level: 13 }
   ],
-  // Prestige 1
+  // Gladiator
   [
-    { id: 8, level: 1 }, // aggression
-    { id: 4, level: 2 }, // preparation
-    { id: 7, level: 3 }, // equalizer
-    { id: 11, level: 4 }, // berzerker
-    { id: 9, level: 5 }, // gambiteer 
-    { id: 10, level: 6 }, // gladiator
-    { id: 5, level: 7 }, // king's gambit
-    { id: 2, level: 8, }, // endgame specialist
+    { id: 10, level: 1 }, // gladiator
+    { id: 2, level: 2, }, // endgame specialist
+    { id: 6, level: 3 }, // rivalry
+    { id: 7, level: 4 }, // equalizer
+    { id: 11, level: 5 }, // berzerker 
+    { id: 9, level: 6 }, // gambiteer
+    { id: 4, level: 7 }, // preparation
+    { id: 5, level: 8 }, // king's gambit
     { id: 12, level: 9 }, // versatility
-    { id: 6, level: 10 }, // rivalry 
+    { id: 8, level: 10 }, // aggression
+    { id: 1, level: 11, }, // opportunist
+    { id: 3, level: 13, }, // knight moves
+  ],
+  // Gambiteer
+  [
+    { id: 9, level: 1 }, // gambiteer 
+    { id: 8, level: 2 }, // aggression
+    { id: 4, level: 3 }, // preparation
+    { id: 7, level: 4 }, // equalizer
+    { id: 11, level: 5 }, // berzerker
+    { id: 5, level: 6 }, // king's gambit
+    { id: 12, level: 7 }, // versatility
+    { id: 6, level: 8 }, // rivalry 
+    { id: 10, level: 9 }, // gladiator
+    { id: 1, level: 10, }, // opportunist
     { id: 3, level: 11, }, // knight moves
-    { id: 1, level: 13, }, // opportunist
+    { id: 2, level: 13, }, // endgame specialist
   ],
   // Prestige 2
   [
@@ -120,21 +135,6 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 8, level: 9 }, // aggression
     { id: 10, level: 11 }, // gladiator 
     { id: 11, level: 13 }, // berzerker
-  ],
-  // Prestige 3
-  [
-    { id: 10, level: 1 }, // gladiator
-    { id: 4, level: 2 }, // preparation
-    { id: 7, level: 3 }, // equalizer
-    { id: 2, level: 4, }, // endgame specialist
-    { id: 6, level: 5 }, // rivalry
-    { id: 11, level: 6 }, // berzerker 
-    { id: 9, level: 7 }, // gambiteer
-    { id: 5, level: 8 }, // king's gambit
-    { id: 8, level: 9 }, // aggression
-    { id: 1, level: 10, }, // opportunist
-    { id: 3, level: 11, }, // knight moves
-    { id: 12, level: 13 }, // versatility
   ],
   // Prestige 4
   [
