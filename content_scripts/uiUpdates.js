@@ -203,6 +203,7 @@ const setPerkModalEventHandlers = async () => {
     await setImageSources();
     await setActivePerkEventHandler();
     await updatePerksModalContent();
+    await updatePerksHeader();
   });
 
   await setActivePerkEventHandler();
