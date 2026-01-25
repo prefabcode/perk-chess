@@ -113,6 +113,12 @@ const versionCheck = async () => {
         await browser.storage.local.set(
           {
             activePerks: [],
+            gladiatorLossBuffer: 1,
+            allowGladiatorPerkRemoval: true,
+            playedOpenings: [],
+            winningStreak: 0,
+            preparationStatus: false,
+            selectedUnlockOrder: 0,
             version: CURRENT_VERSION,
           }
         );
