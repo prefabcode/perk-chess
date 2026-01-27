@@ -164,7 +164,7 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 11, level: 9 }, // berserker
     { id: 6, level: 10 }, // rivalry 
     { id: 7, level: 11 }, // equalizer
-    { id: 8, level: 12 }, // aggression
+    { id: 8, level: 13 }, // aggression
   ],
 
 ]
