@@ -104,7 +104,7 @@ export const updateProgressBar = () => {
 
 async function setImageSources() {
   const images = [
-    'berzerker-icon',
+    'berserker-icon',
     'gambiteer-icon',
     'endgame-specialist-icon',
     'gladiator-icon',

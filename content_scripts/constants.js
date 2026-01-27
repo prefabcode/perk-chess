@@ -17,7 +17,7 @@ export const TIPS = [
 ];
 
 export const PERK_DISPLAY_NAMES = {
-  'berzerker': 'Berzerker',
+  'berserker': 'Berserker',
   'preparation': 'Preparation',
   'gambiteer': 'Gambiteer',
   'endgame-specialist': 'Endgame Specialist',

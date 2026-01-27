@@ -51,7 +51,7 @@
   cursor: not-allowed;
 }
 
-#berzerker-perk.active {
+#berserker-perk.active {
   background: linear-gradient(to right, #8b0000, #ff0000);
 }
 

@@ -63,8 +63,8 @@ export const PERK_METADATA = [
   },
   {
     id: 11,
-    internalName: 'berzerker',
-    displayName: 'Berzerker',
+    internalName: 'berserker',
+    displayName: 'Berserker',
     description: 'Earn an additional [8-10] XP points for winning while using half your allotted time or less.'
   },
   {
@@ -97,7 +97,7 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 2, level: 2, }, // endgame specialist
     { id: 6, level: 3 }, // rivalry
     { id: 7, level: 4 }, // equalizer
-    { id: 11, level: 5 }, // berzerker 
+    { id: 11, level: 5 }, // berserker 
     { id: 9, level: 6 }, // gambiteer
     { id: 4, level: 7 }, // preparation
     { id: 5, level: 8 }, // king's gambit
@@ -112,7 +112,7 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 8, level: 2 }, // aggression
     { id: 4, level: 3 }, // preparation
     { id: 7, level: 4 }, // equalizer
-    { id: 11, level: 5 }, // berzerker
+    { id: 11, level: 5 }, // berserker
     { id: 5, level: 6 }, // king's gambit
     { id: 3, level: 7 }, // knight moves
     { id: 12, level: 8 }, // versatility
@@ -125,7 +125,7 @@ export const PERK_UNLOCK_ORDERS = [
   [
     { id: 5, level: 1 }, // king's gambit
     { id: 2, level: 2, }, // endgame specialist
-    { id: 11, level: 3 }, // berzerker
+    { id: 11, level: 3 }, // berserker
     { id: 3, level: 4, }, // knight moves
     { id: 12, level: 5 }, // versatility
     { id: 7, level: 6 }, // equalizer
@@ -138,7 +138,7 @@ export const PERK_UNLOCK_ORDERS = [
   ],
   // Berserker
   [
-    { id: 11, level: 1 }, // berzerker
+    { id: 11, level: 1 }, // berserker
     { id: 5, level: 2 }, // king's gambit
     { id: 8, level: 3 }, // aggression
     { id: 10, level: 4 }, // gladiator 
