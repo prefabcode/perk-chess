@@ -76,20 +76,20 @@ export const PERK_METADATA = [
 ]
 
 export const PERK_UNLOCK_ORDERS = [
-  // Classic
+  // All-Rounder 
   [
-    { id: 1, level: 1, },
-    { id: 2, level: 2, },
-    { id: 3, level: 3, },
-    { id: 4, level: 4, },
-    { id: 5, level: 5 },
-    { id: 6, level: 6 },
-    { id: 7, level: 7 },
-    { id: 8, level: 7 },
-    { id: 9, level: 8 },
-    { id: 10, level: 9 },
-    { id: 11, level: 11 },
-    { id: 12, level: 13 }
+    { id: 1, level: 1, }, // Opportunist
+    { id: 2, level: 2, }, // Endgame Specialist
+    { id: 3, level: 3, }, // Knight Moves
+    { id: 4, level: 4, }, // Preparation
+    { id: 5, level: 5 }, // King's Gambit
+    { id: 6, level: 6 }, // Rivalry 
+    { id: 7, level: 7 }, // Equalizer
+    { id: 8, level: 7 }, // Aggression
+    { id: 9, level: 8 }, // gambiteer
+    { id: 10, level: 9 }, // gladiator
+    { id: 11, level: 11 }, // berserker
+    { id: 12, level: 13 } // versatility
   ],
   // Gladiator
   [
