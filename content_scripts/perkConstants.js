@@ -136,6 +136,21 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 8, level: 11 }, // aggression
     { id: 9, level: 13 }, // gambiteer
   ],
+  // Berserker
+  [
+    { id: 11, level: 1 }, // berzerker
+    { id: 5, level: 2 }, // king's gambit
+    { id: 8, level: 3 }, // aggression
+    { id: 10, level: 4 }, // gladiator 
+    { id: 1, level: 5, }, // opportunist
+    { id: 4, level: 6 }, // preparation
+    { id: 9, level: 7 }, // gambiteer
+    { id: 12, level: 8 }, // versatility
+    { id: 7, level: 9 }, // equalizer
+    { id: 6, level: 10 }, // rivalry 
+    { id: 2, level: 11, }, // endgame specialist
+    { id: 3, level: 13, }, // knight moves
+  ],
 ]
 
 
