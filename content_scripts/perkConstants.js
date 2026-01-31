@@ -82,8 +82,8 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 4, level: 2, }, // Preparation
     { id: 3, level: 3, }, // Knight Moves
     { id: 2, level: 4, }, // Endgame Specialist
-    { id: 5, level: 5 }, // King's Gambit
-    { id: 6, level: 6 }, // Rivalry 
+    { id: 6, level: 5 }, // Rivalry 
+    { id: 5, level: 6 }, // King's Gambit
     { id: 7, level: 7 }, // Equalizer
     { id: 8, level: 7 }, // Aggression
     { id: 9, level: 8 }, // gambiteer
