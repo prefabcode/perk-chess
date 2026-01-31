@@ -205,6 +205,7 @@ const setPerkModalEventHandlers = async () => {
     await setActivePerkEventHandler();
     await updatePerksModalContent();
     await updatePerksHeader();
+    await updateProgressBarTooltip();
   });
 
   await setActivePerkEventHandler();
