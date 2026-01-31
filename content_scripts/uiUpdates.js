@@ -191,6 +191,8 @@ const setPerkModalEventHandlers = async () => {
       const confirmReset = confirm('Changing Specialization will reset your accumulated XP and return you to level 1. Are you sure you want to proceed?');
       if (confirmReset) {
         await resetProgress(false);
+      } else {
+        return;
       }
     } else {
       await resetPerksAndSideEffects();
