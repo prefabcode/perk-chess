@@ -76,12 +76,12 @@ export const PERK_METADATA = [
 ]
 
 export const PERK_UNLOCK_ORDERS = [
-  // All-Rounder 
+  // Strategist  
   [
     { id: 1, level: 1, }, // Opportunist
-    { id: 2, level: 2, }, // Endgame Specialist
+    { id: 4, level: 2, }, // Preparation
     { id: 3, level: 3, }, // Knight Moves
-    { id: 4, level: 4, }, // Preparation
+    { id: 2, level: 4, }, // Endgame Specialist
     { id: 5, level: 5 }, // King's Gambit
     { id: 6, level: 6 }, // Rivalry 
     { id: 7, level: 7 }, // Equalizer
