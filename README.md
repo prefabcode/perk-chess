@@ -42,8 +42,6 @@ Specializations are a new feature that is introduced in version 1.1.00. Speciali
 
 **Experimentalist** - For the player that believes that variety is the spice of life. This specialization is for those of us who like to try new things in every game.
 
-![perk-chess-demo](https://github.com/user-attachments/assets/26f7d783-bc36-414b-bb34-0448abc795be)
-
 
 ## Installation For Chrome
 
