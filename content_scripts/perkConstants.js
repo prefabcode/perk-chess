@@ -59,7 +59,7 @@ export const PERK_METADATA = [
     id: 10,
     internalName: 'gladiator',
     displayName: 'Gladiator',
-    description: 'Enter the gladiator arena to earn significant XP points for every win. However, you are only allowed to lose one game at your current level. If you lose more than one game, you will lose 35 XP points. Each victory increases the number of games you can lose within that level by 1. Once you select this perk, it remains active until you level up or incur the XP penalty.'
+    description: 'Enter the gladiator arena to earn significant XP points for every win. However, you are only allowed to lose one game at your current level. If you lose more than one game, you will lose 35% accumulated XP in your current level. Each victory increases the number of games you can lose within that level by 1. Once you select this perk, it remains active until you level up or incur the XP penalty.'
   },
   {
     id: 11,
