@@ -8,8 +8,7 @@ Scores of educational chess content is written to help you achieve a certain ELO
 
 ## Introducing Perk Chess, an alternative motivation for playing online Chess
 
-This project was written for those of us who do not care about our ELO. This project exists for those of us who just want to play chess, to have a fun game, without caring about a number going up and down. This project exists for those of us who just want to relax and have fun while playing chess, without the pressure of maintaining or 
-increasing your ELO ranking. Perk Chess exists not as a replacement of the ELO system, but as an alternative, perhaps healthier system of motivation for playing Chess. 
+This project was written for those of us who do not care about our ELO. This project exists for those of us who just want to play chess, to have a fun game, without caring about a number going up and down. This project exists for those of us who just want to relax and have fun while playing chess, without the pressure of maintaining or increasing our ELO ranking. Perk Chess exists not as a replacement of the ELO system, but as an alternative, perhaps healthier system of motivation for playing Chess. 
 
 ### What is Perk Chess? 
 
@@ -23,6 +22,9 @@ In addition to earning experience points for your wins, Perk Chess features a Pe
 
 https://lichess.org/account/preferences/display#showRatings
 
+**Note 2: This browser extension for Lichess.org is ENTIRELY cosmetic and does not interact with gameplay. Perk Chess does not provide ANY assistance during online chess games. There are no move suggestions, no forms of analysis and no hints.** 
+
+Perk Chess provides an alternative motivation system to the traditional ELO system. Instead of rating going up and down (often stressful), you'll earn experience points, level up, unlock and discover new perks along the way. 
 
 ### Specializations
 
@@ -55,9 +57,9 @@ Specializations are a new feature that is introduced in version 1.1.00. Speciali
 
 ## Usage
 
-1. Once installed, navigate to Lichess. You will want to open the Perk selection menu, which will allow you to select perks. You can select perks by clicking on the **XP Progress Bar** in the top right corner of your navigation bar. At level 1, there will be 1 perk that you can select called "Opportunist". You will unlock more perks as you level up in Perk Chess. 
+1. Once installed, navigate to Lichess. You will want to open the Perk selection menu, which will allow you to select your specialization and perks. You can open the perk selection menu by clicking on the **XP Progress Bar** in the top right corner of your lichess navigation bar (right next to where your Lichess username is).  
 
-2. Once you have selected your perks, go play some games! When you win, you'll now earn XP points! Once you have accumulated 100 XP points in level one, you will level up to level 2 (and unlock a new perk!). You can check your current XP points earned for a level by clicking the **XP Progress Bar** on the top right corner of lichess, near your username. 
+2. Once you have selected your specialization and perks, go play some games! When you win, you'll now earn XP points! Once you have accumulated 100 XP points in level 1, you will level up to level 2 (and unlock a new perk!). The goal of Perk Chess is to beat all 15 levels within your selected specialization.
 
 ### File Structure
 
