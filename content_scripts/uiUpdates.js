@@ -104,7 +104,7 @@ export const updateProgressBar = () => {
 
 async function setImageSources() {
   const images = [
-    'berzerker-icon',
+    'berserker-icon',
     'gambiteer-icon',
     'endgame-specialist-icon',
     'gladiator-icon',
@@ -191,6 +191,8 @@ const setPerkModalEventHandlers = async () => {
       const confirmReset = confirm('Changing Specialization will reset your accumulated XP and return you to level 1. Are you sure you want to proceed?');
       if (confirmReset) {
         await resetProgress(false);
+      } else {
+        return;
       }
     } else {
       await resetPerksAndSideEffects();
@@ -203,6 +205,7 @@ const setPerkModalEventHandlers = async () => {
     await setActivePerkEventHandler();
     await updatePerksModalContent();
     await updatePerksHeader();
+    await updateProgressBarTooltip();
   });
 
   await setActivePerkEventHandler();
@@ -305,9 +308,6 @@ export const updatePerksModalContent = async () => {
       const prestigeContainer = document.getElementById('prestige-container');
       prestigeContainer.innerText = `| Prestige: ${prestige}`;
       prestigeContainer.style.display = 'inline';
-
-      const specContainer = document.getElementById('specialization-container');
-      specContainer.style.display = 'block';
     }
 
     // Set active perks and handle locked perks

@@ -17,7 +17,7 @@ export const TIPS = [
 ];
 
 export const PERK_DISPLAY_NAMES = {
-  'berzerker': 'Berzerker',
+  'berserker': 'Berserker',
   'preparation': 'Preparation',
   'gambiteer': 'Gambiteer',
   'endgame-specialist': 'Endgame Specialist',
@@ -56,6 +56,6 @@ export const MAX_PERKS = 2;
 
 export const LEVEL_CAP = 15;
 
-export const CURRENT_VERSION = '1.1.00';
+export const CURRENT_VERSION = '1.1.01';
 
 export const GLADIATOR_PENALTY = 35;

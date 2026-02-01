@@ -59,12 +59,12 @@ export const PERK_METADATA = [
     id: 10,
     internalName: 'gladiator',
     displayName: 'Gladiator',
-    description: 'Enter the gladiator arena to earn significant XP points for every win. However, you are only allowed to lose one game at your current level. If you lose more than one game, you will lose 35 XP points. Each victory increases the number of games you can lose within that level by 1. Once you select this perk, it remains active until you level up or incur the XP penalty.'
+    description: 'Enter the gladiator arena to earn significant XP points for every win. However, you are only allowed to lose one game at your current level. If you lose more than one game, you will lose 35% accumulated XP in your current level. Each victory increases the number of games you can lose within that level by 1. Once you select this perk, it remains active until you level up or incur the XP penalty.'
   },
   {
     id: 11,
-    internalName: 'berzerker',
-    displayName: 'Berzerker',
+    internalName: 'berserker',
+    displayName: 'Berserker',
     description: 'Earn an additional [8-10] XP points for winning while using half your allotted time or less.'
   },
   {
@@ -76,20 +76,20 @@ export const PERK_METADATA = [
 ]
 
 export const PERK_UNLOCK_ORDERS = [
-  // Classic
+  // Strategist  
   [
-    { id: 1, level: 1, },
-    { id: 2, level: 2, },
-    { id: 3, level: 3, },
-    { id: 4, level: 4, },
-    { id: 5, level: 5 },
-    { id: 6, level: 6 },
-    { id: 7, level: 7 },
-    { id: 8, level: 7 },
-    { id: 9, level: 8 },
-    { id: 10, level: 9 },
-    { id: 11, level: 11 },
-    { id: 12, level: 13 }
+    { id: 1, level: 1, }, // Opportunist
+    { id: 2, level: 2, }, // Endgame Specialist
+    { id: 4, level: 3, }, // Preparation
+    { id: 3, level: 4, }, // Knight Moves
+    { id: 6, level: 5 }, // Rivalry 
+    { id: 5, level: 6 }, // King's Gambit
+    { id: 7, level: 7 }, // Equalizer
+    { id: 8, level: 8 }, // Aggression
+    { id: 9, level: 9 }, // gambiteer
+    { id: 10, level: 10 }, // gladiator
+    { id: 11, level: 11 }, // berserker
+    { id: 12, level: 13 } // versatility
   ],
   // Gladiator
   [
@@ -97,7 +97,7 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 2, level: 2, }, // endgame specialist
     { id: 6, level: 3 }, // rivalry
     { id: 7, level: 4 }, // equalizer
-    { id: 11, level: 5 }, // berzerker 
+    { id: 11, level: 5 }, // berserker 
     { id: 9, level: 6 }, // gambiteer
     { id: 4, level: 7 }, // preparation
     { id: 5, level: 8 }, // king's gambit
@@ -112,7 +112,7 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 8, level: 2 }, // aggression
     { id: 4, level: 3 }, // preparation
     { id: 7, level: 4 }, // equalizer
-    { id: 11, level: 5 }, // berzerker
+    { id: 11, level: 5 }, // berserker
     { id: 5, level: 6 }, // king's gambit
     { id: 3, level: 7 }, // knight moves
     { id: 12, level: 8 }, // versatility
@@ -125,7 +125,7 @@ export const PERK_UNLOCK_ORDERS = [
   [
     { id: 5, level: 1 }, // king's gambit
     { id: 2, level: 2, }, // endgame specialist
-    { id: 11, level: 3 }, // berzerker
+    { id: 11, level: 3 }, // berserker
     { id: 3, level: 4, }, // knight moves
     { id: 12, level: 5 }, // versatility
     { id: 7, level: 6 }, // equalizer
@@ -136,6 +136,37 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 8, level: 11 }, // aggression
     { id: 9, level: 13 }, // gambiteer
   ],
+  // Berserker
+  [
+    { id: 11, level: 1 }, // berserker
+    { id: 5, level: 2 }, // king's gambit
+    { id: 8, level: 3 }, // aggression
+    { id: 10, level: 4 }, // gladiator 
+    { id: 1, level: 5, }, // opportunist
+    { id: 4, level: 6 }, // preparation
+    { id: 9, level: 7 }, // gambiteer
+    { id: 12, level: 8 }, // versatility
+    { id: 7, level: 9 }, // equalizer
+    { id: 6, level: 10 }, // rivalry 
+    { id: 2, level: 11, }, // endgame specialist
+    { id: 3, level: 13, }, // knight moves
+  ],
+  // Experimentalist
+  [
+    { id: 12, level: 1 }, // versatility
+    { id: 1, level: 2, }, // opportunist
+    { id: 3, level: 3, }, // knight moves
+    { id: 5, level: 4 }, // king's gambit
+    { id: 10, level: 5 }, // gladiator 
+    { id: 9, level: 6 }, // gambiteer
+    { id: 4, level: 7 }, // preparation
+    { id: 2, level: 8, }, // endgame specialist
+    { id: 11, level: 9 }, // berserker
+    { id: 6, level: 10 }, // rivalry 
+    { id: 7, level: 11 }, // equalizer
+    { id: 8, level: 13 }, // aggression
+  ],
+
 ]
 
 

@@ -13,7 +13,7 @@ import Toastify from 'toastify-js';
 
 export function showPerkToast(perkId, message) {
   const gradientMap = {
-    'berzerker': 'linear-gradient(to right, #8b0000, #ff0000)',
+    'berserker': 'linear-gradient(to right, #8b0000, #ff0000)',
     'bongcloud': 'linear-gradient(to right, #a18cd1, #fbc2eb)',
     'hue-focus': 'linear-gradient(to right, #43cea2, #185a9d)',
     'gambiteer': 'linear-gradient(to right, #4a148c, #880e4f)',
@@ -50,7 +50,7 @@ const calculateRandomBonus = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const isBerzerkerFulfilled = (userName, game) => {
+const isBerserkerFulfilled = (userName, game) => {
   const whitePlayer = game.tags.White;
   const blackPlayer = game.tags.Black;
 
@@ -115,9 +115,9 @@ const isBerzerkerFulfilled = (userName, game) => {
 
   if (remainingTimeInSeconds >= totalTimeAllowed / 2) {
     const bonus = calculateRandomBonus(8, 10);
-    console.log(`Berzerker bonus applied: ${bonus}`);
-    const message = `Berzerker: ${bonus} points`;
-    showPerkToast('berzerker', message);
+    console.log(`Berserker bonus applied: ${bonus}`);
+    const message = `Berserker: ${bonus} points`;
+    showPerkToast('berserker', message);
     return bonus;
   } 
   return 0;
@@ -583,8 +583,8 @@ export const calculatePerkBonuses = async (initialIncrementValue, gameType, game
   
   const activePerks = await getActivePerks(); 
 
-  if (activePerks.includes('berzerker')) {
-    bonus += isBerzerkerFulfilled(userName, game);
+  if (activePerks.includes('berserker')) {
+    bonus += isBerserkerFulfilled(userName, game);
   }
   if (activePerks.includes('gladiator')) {
     bonus += isGladiatorFulfilled(gameType);
