@@ -32,7 +32,7 @@ Specializations are a new feature that is introduced in version 1.1.00. Speciali
 
 **Strategist** - A balanced specialization for perk unlocks. Strategist is designed for players that just want to play a normal game of chess, with a little bit of an extra reward for winning. This specialization is recommended for new players as well as players who would like to study chess in between games. 
 
-**Gladiator** - For the player that embodies the "never resign" mentality. This specialization rewards players for persevering, not giving up and winning otherwise lost games. 
+**Gladiator** - For the player that embodies the "never resign" mentality. This specialization rewards players for persevering, not giving up and winning otherwise lost games. After all, fortune favors the bold. 
 
 **Gambiteer** - For the player that loves to sacrifice pawns, gambit material, and attack aggressively. Gambiteer is for the romantics of chess. 
 
