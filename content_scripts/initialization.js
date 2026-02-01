@@ -118,7 +118,6 @@ const versionCheck = async () => {
             playedOpenings: [],
             winningStreak: 0,
             preparationStatus: false,
-            selectedUnlockOrder: 0,
             version: CURRENT_VERSION,
           }
         );
