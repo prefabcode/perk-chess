@@ -182,6 +182,7 @@ const setPerkModalEventHandlers = async () => {
   });
 
   const unlockOrderDropdown = document.querySelector('#unlock-order-dropdown');
+  let previousUnlockValue = unlockOrderDropdown.value;
 
   unlockOrderDropdown.addEventListener('change', async (event) => {
     const currentHue = await getCurrentHue();
@@ -192,6 +193,7 @@ const setPerkModalEventHandlers = async () => {
       if (confirmReset) {
         await resetProgress(false);
       } else {
+        event.target.value = previousUnlockValue;
         return;
       }
     } else {
@@ -206,6 +208,7 @@ const setPerkModalEventHandlers = async () => {
     await updatePerksModalContent();
     await updatePerksHeader();
     await updateProgressBarTooltip();
+    previousUnlockValue = event.target.value;
   });
 
   await setActivePerkEventHandler();
