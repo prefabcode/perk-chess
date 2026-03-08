@@ -1,8 +1,8 @@
 import { 
-  updatePerksModalContent, 
   updateProgressBarTooltip, 
   updatePerksHeader,
   updateHueChessUI,
+  updateProgressBar,
 } from './uiUpdates.js';
 import { browser } from './constants.js';
 
@@ -57,6 +57,7 @@ export const updateActivePerks = (perk, isChecked) => {
       console.log(`Active perks updated: ${activePerks}`);
       await updateProgressBarTooltip();
       await updatePerksHeader();
+      await updateProgressBar();
     });
   });
 };

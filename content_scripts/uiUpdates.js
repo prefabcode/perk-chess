@@ -28,9 +28,11 @@ const showRandomTip = () => {
 
 export const updateProgressBar = () => {
   return new Promise((resolve) => {
-    browser.storage.local.get(['completedBoards', 'currentHue'], (result) => {
+    browser.storage.local.get(['completedBoards', 'currentHue', 'gladiatorLossBuffer', 'activePerks'], (result) => {
       const level = (result.completedBoards !== null ? result.completedBoards : 0) + 1;
       const progress = result.currentHue || 0;
+      const gladiatorLossBuffer = result.gladiatorLossBuffer || 0; 
+      const activePerks = result.activePerks || []; 
   
       let progressBar = document.getElementById('hue-progress-bar');
       if (!progressBar) {
@@ -41,7 +43,7 @@ export const updateProgressBar = () => {
         progressBar.style.alignItems = 'center';
         progressBar.style.margin = '0 10px';
         progressBar.style.flexGrow = '1';
-        progressBar.style.justifyContent = 'flex-end';
+        progressBar.style.justifyContent = 'flex-end'; 
   
         const progressBarContainer = document.createElement('div');
         progressBarContainer.id = 'progress-bar-container';
@@ -79,6 +81,10 @@ export const updateProgressBar = () => {
         const header = document.querySelector('header');
         const siteButtons = header.querySelector('.site-buttons');
         header.insertBefore(progressBar, siteButtons);
+
+        if (activePerks.includes('gladiator')) {
+         paintGladiatorTracker(gladiatorLossBuffer);
+        }
   
         progressBarContainer.addEventListener('click', openPerksModal);
   
@@ -87,6 +93,21 @@ export const updateProgressBar = () => {
         const levelText = document.getElementById('level-text');
         progressFill.style.width = `${progress}%`;
         levelText.textContent = `Level ${level}`;
+
+        const gladiatorContainer = document.getElementById('gladiator-container');
+
+        if (activePerks.includes('gladiator')) {
+          if (!gladiatorContainer) {
+            paintGladiatorTracker(gladiatorLossBuffer);
+          } else {
+            const lossBufferText = document.getElementById('loss-buffer-text');
+            if (lossBufferText) {
+              lossBufferText.textContent = gladiatorLossBuffer;
+            }
+          }
+        } else if (gladiatorContainer) {
+          gladiatorContainer.remove();
+        }
       }
   
       // Adapt to light and dark modes
@@ -101,6 +122,29 @@ export const updateProgressBar = () => {
     });
   });
 };
+
+const paintGladiatorTracker = (lossBuffer) => {
+   const progressBar = document.getElementById('hue-progress-bar');
+   const gladiatorContainer = document.createElement('div');
+    gladiatorContainer.id = 'gladiator-container';
+    gladiatorContainer.style.display = 'flex';
+    gladiatorContainer.style.alignItems = 'center';
+    gladiatorContainer.style.marginRight = '10px';
+
+    const gladiatorIcon = document.createElement('img');
+    gladiatorIcon.src = browser.runtime.getURL('imgs/gladiator.svg');
+    gladiatorIcon.style.width = '20px';
+    gladiatorIcon.style.height = '20px';
+    gladiatorIcon.style.marginRight = '5px';
+
+    const lossBufferText = document.createElement('span');
+    lossBufferText.id = 'loss-buffer-text';
+    lossBufferText.textContent = lossBuffer;
+
+    gladiatorContainer.appendChild(gladiatorIcon);
+    gladiatorContainer.appendChild(lossBufferText);
+    progressBar.appendChild(gladiatorContainer);
+}
 
 async function setImageSources() {
   const images = [
@@ -207,6 +251,7 @@ const setPerkModalEventHandlers = async () => {
     await setActivePerkEventHandler();
     await updatePerksModalContent();
     await updatePerksHeader();
+    await updateProgressBar();
     await updateProgressBarTooltip();
     previousUnlockValue = event.target.value;
   });
