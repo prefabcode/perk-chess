@@ -143,7 +143,7 @@ const paintGladiatorTracker = (lossBuffer) => {
 
     gladiatorContainer.appendChild(gladiatorIcon);
     gladiatorContainer.appendChild(lossBufferText);
-    progressBar.appendChild(gladiatorContainer);
+    progressBar.prepend(gladiatorContainer);
 }
 
 async function setImageSources() {
