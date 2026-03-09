@@ -132,6 +132,7 @@ const paintGladiatorTracker = (lossBuffer) => {
     gladiatorContainer.style.marginRight = '10px';
 
     const gladiatorIcon = document.createElement('img');
+    gladiatorIcon.id = 'gladiator-progress-img';
     gladiatorIcon.src = browser.runtime.getURL('imgs/gladiator.svg');
     gladiatorIcon.style.width = '20px';
     gladiatorIcon.style.height = '20px';

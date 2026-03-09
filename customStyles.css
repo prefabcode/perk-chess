@@ -314,7 +314,12 @@ dialog.hue-modal {
   text-align: center;
 }
 
-/* Lichess Modal Styles */
+html.light #gladiator-progress-img {
+  filter: invert(0%) sepia(91%) saturate(100%) hue-rotate(25deg) brightness(0) contrast(107%);
+}
+
+
+/* Preload Lichess Modal Styles */
 
 /* ============================================================
    SCOPED TO dialog.hue-modal
@@ -566,7 +571,6 @@ dialog.hue-modal .mselect__label::after {
     font-style: normal;
     font-weight: normal;
     text-transform: none;
-    speak: none;
     content: attr(data-icon);
     opacity: .9;
     unicode-bidi: isolate
