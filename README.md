@@ -28,7 +28,11 @@ Perk Chess provides an alternative motivation system to the traditional ELO syst
 
 ### Specializations
 
-Specializations are a new feature that is introduced in version 1.1.00. Specializations act like role-playing game classes. Specializations change the order that perks unlock around a specific theme, and thus each embodies and rewards a particular type of player and playstyle. There are six different specializations to choose from, and they are: 
+Specializations are a new feature that is introduced in version 1.1.00. Specializations act like role-playing game classes. Specializations change the order that perks unlock around a specific theme, and thus each embodies and rewards a particular type of player and playstyle.
+
+Specializations are a reward for completing Perk Chess. They (along with Prestige mode) remain locked until you beat all 15 levels at least once. Until then, you play the default Strategist specialization; after your first completion, the specialization picker becomes available and your Prestige rank begins to climb each time you finish the game again.
+
+There are seven different specializations to choose from, and they are: 
 
 **Strategist** - A balanced specialization for perk unlocks. Strategist is designed for players that just want to play a normal game of chess, with a little bit of an extra reward for winning. This specialization is recommended for new players as well as players who would like to study chess in between games. 
 
@@ -41,6 +45,8 @@ Specializations are a new feature that is introduced in version 1.1.00. Speciali
 **Berserker** - For the highly aggressive player that throws all caution into the wind, that wants to win fast, win at all costs, and as quickly as possible. 
 
 **Experimentalist** - For the player that believes that variety is the spice of life. This specialization is for those of us who like to try new things in every game.
+
+**Randomizer** - For the player who likes to leave their fate to chance. Randomizer shuffles the perk unlock order into a completely random sequence. Don't like the roll you got? You can reroll the order as many times as you like, but only before you've earned any XP in your current run.
 
 
 ## Installation For Chrome
