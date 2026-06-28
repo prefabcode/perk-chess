@@ -38,16 +38,21 @@ Entry point is `content.js` → `initialization.js` `init()`. There is no framew
 - `rewardCalculation.js` — `getInitialRewardValue` derives base XP from the game's time control (longer = more XP). `incrementHue` adds base + perk bonus to `currentHue`; crossing 100 advances the board/level (and at `LEVEL_CAP` = 15 increments prestige and resets). `applyGladiatorPenalty` removes 35% on a Gladiator failure.
 - `perks.js` — the bonus engine. `calculatePerkBonuses` inspects the parsed PGN (using **chess.js** to replay moves and the pgn-parser output) to check each active perk's condition and returns total bonus XP. Also owns `showPerkToast` (toastify popups). This is where per-perk game-analysis logic lives.
 - `perkConstants.js` — `PERK_METADATA` (the 12 perks, by `id`/`internalName`), the perk-box HTML template, and `PERK_UNLOCK_ORDERS`: a 6-element array (one per specialization, indexed by `selectedUnlockOrder`) mapping perk `id` → unlock `level`. Specializations differ **only** in unlock order, not in perk behavior.
-- `uiUpdates.js` — all DOM injection/rendering: the navbar XP progress bar, its tooltip, the perks selection modal (`perks.html`), board theme (`updateBoardStyle` via `BOARD_LEVEL_MAP`), and hue rotation (`updateHueRotateStyle`).
+- `uiUpdates.js` — all DOM injection/rendering: the navbar XP progress bar, its tooltip, the perks selection modal (`perks.html`), board theme (`updateBoardStyle` via `BOARD_LEVEL_MAP`), and hue rotation (`updateHueRotateStyle`). The specialization `<select>` is gated here in `updatePerksUnlockOrder`: it stays hidden (`display: none`) until `prestige >= 1`, so the picker only appears once the player has beaten Perk Chess at least once.
 - `constants.js` — shared constants and the `browser` shim.
 
 **Modals:** `settings.html` is the extension popup, opened from the toolbar icon via the background script (`background-{chrome,firefox}.js` injects `openSettingsModal()`). `perks.html` is the in-page perk/specialization selection modal, opened by clicking the injected XP progress bar.
+
+## Code style
+
+Do not add explanatory comments that merely restate what the code does or describe a feature's purpose/design intent (e.g. "this reveals the picker once the player has beaten the game"). The code should speak for itself. Only comment when the *how* is genuinely non-obvious — a tricky algorithm, a workaround for a browser/Lichess quirk, or a subtle invariant that isn't visible from the surrounding code. When in doubt, leave the comment out.
 
 ## Conventions / gotchas
 
 - Storage access is callback-based `chrome.storage.local`, wrapped in hand-rolled Promises — match that pattern (every storage helper returns a Promise) rather than introducing a new abstraction.
 - Win/loss and all perk conditions are determined from the **post-game PGN fetched from lichess's API**, not from live DOM — perk logic should parse the game object, not scrape the board.
 - The 1s `setInterval` URL poll in `init()` is how SPA navigation is handled; new pages that need monitoring hook in through `checkUrlAndStartMonitoring`.
+- Specializations are a new-game+ reward unlocked by reaching `prestige >= 1`. The gate is purely a UI visibility toggle — `selectedUnlockOrder` is never reset (not by `versionCheck`, `resetProgress`, or the prestige flow), so a player's chosen specialization persists across updates and prestige resets. New installs default to `0` (Strategist).
 - Some perks (Opportunist, Equalizer, Endgame Specialist) are known not to work in lichess variants except Chess960 — see `TIPS` in `constants.js`.
 - `perk-style-tester.html` is a standalone scratch page for previewing perk toast styles; not part of the extension bundle.
 ```

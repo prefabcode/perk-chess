@@ -14,6 +14,7 @@ export const TIPS = [
   "Some perks may not function with Lichess variants due to incompatibilities. The following perks are affected: Opportunist, Equalizer, Endgame Specialist. These perks will work in the Chess960 variant, as it is similar to standard chess.",
   "Wins in slower time controls award more XP points than wins in shorter time controls.",
   "You can only earn XP points if you are signed in to Lichess.",
+  "Beating all 15 levels of Perk Chess unlocks Specializations and Prestige mode."
 ];
 
 export const PERK_DISPLAY_NAMES = {

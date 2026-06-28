@@ -10,10 +10,11 @@ import {
   getPlayingId,
   getSelectedUnlockOrder,
   setSelectedUnlockOrder,
-  getCurrentHue, 
+  getCurrentHue,
   getCompletedBoards,
   resetProgress,
-  resetPerksAndSideEffects
+  resetPerksAndSideEffects,
+  getPrestige
 } from './storageManagement.js';
 import { showPerkToast } from './perks.js';
 import { PREPARATION_TIME, TIPS, PERK_DISPLAY_NAMES, MAX_PERKS, browser, BOARD_LEVEL_MAP } from './constants.js';
@@ -279,8 +280,14 @@ const updatePerksUnlockOrder = async () => {
   
   const unlockOrder = PERK_UNLOCK_ORDERS[selectedUnlockOrder];
   const unlockOrderDropdown = modal.querySelector('#unlock-order-dropdown');
-  
+
   unlockOrderDropdown.value = selectedUnlockOrder;
+
+  const prestige = await getPrestige();
+  const specializationContainer = modal.querySelector('#specialization-container');
+  if (specializationContainer) {
+    specializationContainer.style.display = prestige >= 1 ? '' : 'none';
+  }
   
   let perkContainerHtmlStr = '';
   unlockOrder.forEach((unlockMetadata) => {
