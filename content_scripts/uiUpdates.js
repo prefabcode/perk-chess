@@ -10,15 +10,19 @@ import {
   getPlayingId,
   getSelectedUnlockOrder,
   setSelectedUnlockOrder,
-  getCurrentHue, 
+  getCurrentHue,
   getCompletedBoards,
   resetProgress,
-  resetPerksAndSideEffects
+  resetPerksAndSideEffects,
+  getPrestige,
+  getRandomizerOrder,
+  setRandomizerOrder
 } from './storageManagement.js';
 import { showPerkToast } from './perks.js';
-import { PREPARATION_TIME, TIPS, PERK_DISPLAY_NAMES, MAX_PERKS, browser, BOARD_LEVEL_MAP } from './constants.js';
+import { PREPARATION_TIME, TIPS, MAX_PERKS, browser, BOARD_LEVEL_MAP } from './constants.js';
 import tippy from 'tippy.js';
-import { PERK_MARKUP_TEMPLATE, PERK_METADATA, PERK_UNLOCK_ORDERS } from './perkConstants.js';
+import { PERK_MARKUP_TEMPLATE, PERK_METADATA, PERK_UNLOCK_ORDERS, PERK_DISPLAY_NAMES, RANDOMIZER_INDEX } from './perkConstants.js';
+import { generateRandomUnlockOrder } from './utils.js';
 
 const showRandomTip = () => {
   const tipMessage = document.getElementById('tips-message');
@@ -244,22 +248,44 @@ const setPerkModalEventHandlers = async () => {
     } else {
       await resetPerksAndSideEffects();
     }
-    
+
     const selectedOrder = parseInt(event.target.value, 10);
     await setSelectedUnlockOrder(selectedOrder);
-    await updatePerksUnlockOrder();
-    await setImageSources();
-    await setActivePerkEventHandler();
-    await updatePerksModalContent();
-    await updatePerksHeader();
-    await updateProgressBar();
-    await updateProgressBarTooltip();
+    if (selectedOrder === RANDOMIZER_INDEX) {
+      await setRandomizerOrder(generateRandomUnlockOrder());
+    }
+    await refreshPerksModalUi();
     previousUnlockValue = event.target.value;
+  });
+
+  const rerollButton = modal.querySelector('#reroll-perks-btn');
+  rerollButton.addEventListener('click', async () => {
+    const playingId = await getPlayingId();
+    if (playingId) {
+      alert("You cannot reroll perks while a game is in progress.");
+      return;
+    }
+    const currentHue = await getCurrentHue();
+    const completedBoards = await getCompletedBoards();
+    if (currentHue > 0 || completedBoards > 0) return;
+    await setRandomizerOrder(generateRandomUnlockOrder());
+    await resetPerksAndSideEffects();
+    await refreshPerksModalUi();
   });
 
   await setActivePerkEventHandler();
 
 }
+
+const refreshPerksModalUi = async () => {
+  await updatePerksUnlockOrder();
+  await setImageSources();
+  await setActivePerkEventHandler();
+  await updatePerksModalContent();
+  await updatePerksHeader();
+  await updateProgressBarTooltip();
+  await updateProgressBar();
+};
 
 const setActivePerkEventHandler = async () => {
   const perkBoxes = document.querySelectorAll('.perks .perk-box');
@@ -317,17 +343,46 @@ const setActivePerkEventHandler = async () => {
   });
 }
 
+const resolveUnlockOrder = async (selectedUnlockOrder) => {
+  if (selectedUnlockOrder === RANDOMIZER_INDEX) {
+    let order = await getRandomizerOrder();
+    if (!order || order.length === 0) {
+      order = generateRandomUnlockOrder();
+      await setRandomizerOrder(order);
+    }
+    return order;
+  }
+  return PERK_UNLOCK_ORDERS[selectedUnlockOrder];
+};
+
+const updateRerollButtonVisibility = async (modal, selectedUnlockOrder) => {
+  const rerollButton = modal.querySelector('#reroll-perks-btn');
+  if (!rerollButton) return;
+  const currentHue = await getCurrentHue();
+  const completedBoards = await getCompletedBoards();
+  const canReroll = selectedUnlockOrder === RANDOMIZER_INDEX && currentHue === 0 && completedBoards === 0;
+  rerollButton.style.display = canReroll ? '' : 'none';
+};
+
 const updatePerksUnlockOrder = async () => {
   const modal = document.querySelector('#hue-chess-perks-modal');
   if (!modal) return;
   const perksContainer = modal.querySelector('#perks-container');
   const selectedUnlockOrder = await getSelectedUnlockOrder();
-  
-  const unlockOrder = PERK_UNLOCK_ORDERS[selectedUnlockOrder];
+
+  const unlockOrder = await resolveUnlockOrder(selectedUnlockOrder);
   const unlockOrderDropdown = modal.querySelector('#unlock-order-dropdown');
-  
+
   unlockOrderDropdown.value = selectedUnlockOrder;
-  
+
+  const prestige = await getPrestige();
+  const specializationContainer = modal.querySelector('#specialization-container');
+  if (specializationContainer) {
+    specializationContainer.style.display = prestige >= 1 ? '' : 'none';
+  }
+
+  await updateRerollButtonVisibility(modal, selectedUnlockOrder);
+
   let perkContainerHtmlStr = '';
   unlockOrder.forEach((unlockMetadata) => {
     const perkMetadata = PERK_METADATA.find(perk => perk.id === unlockMetadata.id);

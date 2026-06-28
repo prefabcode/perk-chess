@@ -257,6 +257,22 @@ export const setSelectedUnlockOrder = (order) => {
   });
 };
 
+export const getRandomizerOrder = () => {
+  return new Promise((resolve) => {
+    browser.storage.local.get(['randomizerOrder'], (result) => {
+      resolve(result.randomizerOrder || []);
+    });
+  });
+};
+
+export const setRandomizerOrder = (order) => {
+  return new Promise((resolve) => {
+    browser.storage.local.set({ randomizerOrder: order }, () => {
+      resolve();
+    });
+  });
+};
+
 export const resetPerksAndSideEffects = async () => {
   const resetState = {
     activePerks: [],

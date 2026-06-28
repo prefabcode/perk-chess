@@ -1174,3 +1174,17 @@ dialog.hue-modal .game-setup .color-cards .card-radio .text {
         border: 2px solid var(--c-secondary)
     }
 }
+#reroll-perks-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 6px;
+  font-size: 1.2em;
+  line-height: 1;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+#reroll-perks-btn:hover {
+  transform: scale(1.15);
+}
