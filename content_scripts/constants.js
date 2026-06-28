@@ -17,21 +17,6 @@ export const TIPS = [
   "Beating all 15 levels of Perk Chess unlocks Specializations and Prestige mode."
 ];
 
-export const PERK_DISPLAY_NAMES = {
-  'berserker': 'Berserker',
-  'preparation': 'Preparation',
-  'gambiteer': 'Gambiteer',
-  'endgame-specialist': 'Endgame Specialist',
-  'gladiator': 'Gladiator',
-  'equalizer': 'Equalizer',
-  'rivalry': 'Rivalry',
-  'opportunist': 'Opportunist',
-  'versatility': 'Versatility',
-  'knight-moves': 'Knight Moves',
-  'aggression': 'Aggression',
-  'kings-gambit': 'King\'s Gambit'
-};
-
 export const BOARD_LEVEL_MAP = {
   0: 'imgs/boards/level-1.png',
   1: 'imgs/boards/level-2.jpg',
@@ -54,8 +39,6 @@ export const BOARD_LEVEL_MAP = {
 export const browser = typeof chrome !== "undefined" ? chrome : browser;
 
 export const MAX_PERKS = 2;
-
-export const RANDOMIZER_INDEX = 6;
 
 export const LEVEL_CAP = 15;
 

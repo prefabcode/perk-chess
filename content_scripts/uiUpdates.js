@@ -19,9 +19,9 @@ import {
   setRandomizerOrder
 } from './storageManagement.js';
 import { showPerkToast } from './perks.js';
-import { PREPARATION_TIME, TIPS, PERK_DISPLAY_NAMES, MAX_PERKS, browser, BOARD_LEVEL_MAP, RANDOMIZER_INDEX } from './constants.js';
+import { PREPARATION_TIME, TIPS, MAX_PERKS, browser, BOARD_LEVEL_MAP } from './constants.js';
 import tippy from 'tippy.js';
-import { PERK_MARKUP_TEMPLATE, PERK_METADATA, PERK_UNLOCK_ORDERS } from './perkConstants.js';
+import { PERK_MARKUP_TEMPLATE, PERK_METADATA, PERK_UNLOCK_ORDERS, PERK_DISPLAY_NAMES, RANDOMIZER_INDEX } from './perkConstants.js';
 import { generateRandomUnlockOrder } from './utils.js';
 
 const showRandomTip = () => {
