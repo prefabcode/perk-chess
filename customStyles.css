@@ -411,3 +411,18 @@ dialog.hue-modal:not(.touch-scroll) button.close-button:hover {
   display: block;
   text-align: center;
 }
+
+#reroll-perks-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 6px;
+  font-size: 1.2em;
+  line-height: 1;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+#reroll-perks-btn:hover {
+  transform: scale(1.15);
+}

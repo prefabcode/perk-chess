@@ -75,6 +75,8 @@ export const PERK_METADATA = [
   },
 ]
 
+export const RANDOMIZER_LEVELS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13];
+
 export const PERK_UNLOCK_ORDERS = [
   // Strategist  
   [

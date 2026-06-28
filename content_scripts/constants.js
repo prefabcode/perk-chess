@@ -55,6 +55,8 @@ export const browser = typeof chrome !== "undefined" ? chrome : browser;
 
 export const MAX_PERKS = 2;
 
+export const RANDOMIZER_INDEX = 6;
+
 export const LEVEL_CAP = 15;
 
 export const CURRENT_VERSION = '1.1.01';
