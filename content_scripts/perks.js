@@ -26,7 +26,7 @@ export function showPerkToast(perkId, message) {
     'preparation': 'linear-gradient(to right, #093a5e, #0077b6)',
     'opportunist': 'linear-gradient(to right, #daa520, #b8860b)',
     'versatility': 'linear-gradient(to right, #8e44ad, #f39c12)',
-    'knight-moves': 'linear-gradient(to right, #0b3d91, #6a1b9a)',
+    'hypermodern': 'linear-gradient(to right, #0b3d91, #6a1b9a)',
     'aggression': 'linear-gradient(to right, #d50000, #ff6f00)',
     'kings-gambit': 'linear-gradient(to right, #a50034, #88113f)'
   };
@@ -433,41 +433,43 @@ const isVersatilityFulfilled = async (game) => {
   return 0;
 };
 
-const isKnightMovesFulfilled = (userName, game) => {                
-   const whitePlayer = game.tags.White;                    
-   const blackPlayer = game.tags.Black;                    
-                                     
-   let playerColor = null;           
-                                     
-   if (whitePlayer === userName) {   
-     playerColor = 'white';          
-   } else if (blackPlayer === userName) {                         
-     playerColor = 'black';          
-   }                                 
-                                     
-   if (!playerColor) {               
-     console.error('Player not found in this game.');                    
-     return 0;                       
-   }                                 
-                                                              
-   const moves = game.moves;         
-   let firstMove = null;             
-                                     
-   if (playerColor === 'white' && moves.length > 0) {                 
-     firstMove = moves[0].notation.notation;         
-   } else if (playerColor === 'black' && moves.length > 1) {              
-     firstMove = moves[1].notation.notation;         
-   }                                 
-                                     
-   if (firstMove && firstMove.startsWith('N')) {        
-     const bonus = calculateRandomBonus(2, 4);         
-     const message = `Knight Moves: ${bonus} points`;                   
-     showPerkToast('knight-moves', message);                           
-     return bonus;                   
-   }
+const CENTRAL_SQUARES = ['e4', 'e5', 'd4', 'd5'];
 
-   return 0;                         
- };
+const isHypermodernFulfilled = (userName, game) => {
+  const whitePlayer = game.tags.White;
+  const blackPlayer = game.tags.Black;
+
+  let playerColor = null;
+
+  if (whitePlayer === userName) {
+    playerColor = 'white';
+  } else if (blackPlayer === userName) {
+    playerColor = 'black';
+  }
+
+  if (!playerColor) {
+    console.error('Player not found in this game.');
+    return 0;
+  }
+
+  const moves = game.moves;
+  const startIndex = playerColor === 'white' ? 0 : 1;
+
+  for (let count = 0, i = startIndex; count < 5 && i < moves.length; count++, i += 2) {
+    const san = moves[i].notation.notation;
+    // Pawn moves start with a file letter; piece moves start with N/B/R/Q/K and castling with O.
+    if (!/^[a-h]/.test(san)) continue;
+    const destinationMatch = san.match(/([a-h][1-8])(?:=[NBRQ])?[+#]?$/);
+    if (destinationMatch && CENTRAL_SQUARES.includes(destinationMatch[1])) {
+      return 0;
+    }
+  }
+
+  const bonus = calculateRandomBonus(3, 5);
+  const message = `Hypermodern: ${bonus} points`;
+  showPerkToast('hypermodern', message);
+  return bonus;
+};
 
  const isAggressionFulfilled = (game) => {
   const moves = Math.ceil(game.moves.length / 2);
@@ -610,8 +612,8 @@ export const calculatePerkBonuses = async (initialIncrementValue, gameType, game
   if (activePerks.includes('versatility')) {
     bonus += await isVersatilityFulfilled(game);
   }
-  if (activePerks.includes('knight-moves')) {
-    bonus += isKnightMovesFulfilled(userName, game);
+  if (activePerks.includes('hypermodern')) {
+    bonus += isHypermodernFulfilled(userName, game);
   }
   if (activePerks.includes('aggression')) {
     bonus += isAggressionFulfilled(game);

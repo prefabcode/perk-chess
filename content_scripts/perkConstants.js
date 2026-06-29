@@ -15,9 +15,9 @@ export const PERK_METADATA = [
   },
   {
     id: 3,
-    internalName: 'knight-moves',
-    displayName: 'Knight Moves',
-    description: 'Earn an additional [2-4] XP points for winning a game in which your first move is a Knight move.'
+    internalName: 'hypermodern',
+    displayName: 'Hypermodern',
+    description: 'Earn an additional [3-5] XP points for winning a game in which you do not move a pawn to one of the four central squares (e4, e5, d4, d5) within your first five moves.'
   },
   {
     id: 4,
@@ -85,7 +85,7 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 1, level: 1, }, // Opportunist
     { id: 2, level: 2, }, // Endgame Specialist
     { id: 4, level: 3, }, // Preparation
-    { id: 3, level: 4, }, // Knight Moves
+    { id: 3, level: 4, }, // hypermodern
     { id: 6, level: 5 }, // Rivalry 
     { id: 5, level: 6 }, // King's Gambit
     { id: 8, level: 7 }, // Aggression
@@ -108,7 +108,7 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 12, level: 9 }, // versatility
     { id: 8, level: 10 }, // aggression
     { id: 1, level: 11, }, // opportunist
-    { id: 3, level: 13, }, // knight moves
+    { id: 3, level: 13, }, // hypermodern
   ],
   // Gambiteer
   [
@@ -118,7 +118,7 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 7, level: 4 }, // equalizer
     { id: 11, level: 5 }, // berserker
     { id: 5, level: 6 }, // king's gambit
-    { id: 3, level: 7 }, // knight moves
+    { id: 3, level: 7 }, // hypermodern
     { id: 12, level: 8 }, // versatility
     { id: 6, level: 9 }, // rivalry 
     { id: 10, level: 10 }, // gladiator
@@ -130,7 +130,7 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 5, level: 1 }, // king's gambit
     { id: 2, level: 2, }, // endgame specialist
     { id: 11, level: 3 }, // berserker
-    { id: 3, level: 4, }, // knight moves
+    { id: 3, level: 4, }, // hypermodern
     { id: 12, level: 5 }, // versatility
     { id: 7, level: 6 }, // equalizer
     { id: 1, level: 7, }, // opportunist
@@ -153,13 +153,13 @@ export const PERK_UNLOCK_ORDERS = [
     { id: 7, level: 9 }, // equalizer
     { id: 6, level: 10 }, // rivalry 
     { id: 2, level: 11, }, // endgame specialist
-    { id: 3, level: 13, }, // knight moves
+    { id: 3, level: 13, }, // hypermodern
   ],
   // Experimentalist
   [
     { id: 12, level: 1 }, // versatility
     { id: 1, level: 2, }, // opportunist
-    { id: 3, level: 3, }, // knight moves
+    { id: 3, level: 3, }, // hypermodern
     { id: 5, level: 4 }, // king's gambit
     { id: 10, level: 5 }, // gladiator 
     { id: 9, level: 6 }, // gambiteer
