@@ -21,7 +21,7 @@ import {
 import { showPerkToast } from './perks.js';
 import { PREPARATION_TIME, TIPS, MAX_PERKS, browser, BOARD_LEVEL_MAP } from './constants.js';
 import tippy from 'tippy.js';
-import { PERK_MARKUP_TEMPLATE, PERK_METADATA, PERK_UNLOCK_ORDERS, PERK_DISPLAY_NAMES, RANDOMIZER_INDEX } from './perkConstants.js';
+import { PERK_MARKUP_TEMPLATE, PERK_METADATA, PERK_UNLOCK_ORDERS, RANDOMIZER_INDEX } from './perkConstants.js';
 import { generateRandomUnlockOrder } from './utils.js';
 
 const showRandomTip = () => {
@@ -32,12 +32,10 @@ const showRandomTip = () => {
 
 export const updateProgressBar = () => {
   return new Promise((resolve) => {
-    browser.storage.local.get(['completedBoards', 'currentHue', 'gladiatorLossBuffer', 'activePerks'], (result) => {
+    browser.storage.local.get(['completedBoards', 'currentHue'], async (result) => {
       const level = (result.completedBoards !== null ? result.completedBoards : 0) + 1;
       const progress = result.currentHue || 0;
-      const gladiatorLossBuffer = result.gladiatorLossBuffer || 0; 
-      const activePerks = result.activePerks || []; 
-  
+
       let progressBar = document.getElementById('hue-progress-bar');
       if (!progressBar) {
         // Create progress bar
@@ -86,34 +84,15 @@ export const updateProgressBar = () => {
         const siteButtons = header.querySelector('.site-buttons');
         header.insertBefore(progressBar, siteButtons);
 
-        if (activePerks.includes('gladiator')) {
-         paintGladiatorTracker(gladiatorLossBuffer);
-        }
-  
         progressBarContainer.addEventListener('click', openPerksModal);
-  
+
       } else {
         const progressFill = progressBar.querySelector('#progress-fill');
         const levelText = document.getElementById('level-text');
         progressFill.style.width = `${progress}%`;
         levelText.textContent = `Level ${level}`;
-
-        const gladiatorContainer = document.getElementById('gladiator-container');
-
-        if (activePerks.includes('gladiator')) {
-          if (!gladiatorContainer) {
-            paintGladiatorTracker(gladiatorLossBuffer);
-          } else {
-            const lossBufferText = document.getElementById('loss-buffer-text');
-            if (lossBufferText) {
-              lossBufferText.textContent = gladiatorLossBuffer;
-            }
-          }
-        } else if (gladiatorContainer) {
-          gladiatorContainer.remove();
-        }
       }
-  
+
       // Adapt to light and dark modes
       const isDarkMode = document.body.classList.contains('dark') || document.body.classList.contains('transp');
       if (isDarkMode) {
@@ -122,34 +101,72 @@ export const updateProgressBar = () => {
         progressFill.style.backgroundColor = '#f7f7f7';
         progressBarOuter.style.backgroundColor = 'hsl(37, 5%, 22%)';
       }
+
+      await paintActivePerks();
       resolve();
     });
   });
 };
 
-const paintGladiatorTracker = (lossBuffer) => {
-   const progressBar = document.getElementById('hue-progress-bar');
-   const gladiatorContainer = document.createElement('div');
-    gladiatorContainer.id = 'gladiator-container';
-    gladiatorContainer.style.display = 'flex';
-    gladiatorContainer.style.alignItems = 'center';
-    gladiatorContainer.style.marginRight = '10px';
+const paintActivePerks = async () => {
+  const progressBar = document.getElementById('hue-progress-bar');
+  if (!progressBar) return;
 
-    const gladiatorIcon = document.createElement('img');
-    gladiatorIcon.id = 'gladiator-progress-img';
-    gladiatorIcon.src = browser.runtime.getURL('imgs/gladiator.svg');
-    gladiatorIcon.style.width = '20px';
-    gladiatorIcon.style.height = '20px';
-    gladiatorIcon.style.marginRight = '5px';
+  const result = await new Promise((resolve) => {
+    browser.storage.local.get(['activePerks', 'gladiatorLossBuffer', 'playedOpenings', 'preparationStatus'], resolve);
+  });
+  const activePerks = result.activePerks || [];
+  const gladiatorLossBuffer = result.gladiatorLossBuffer || 0;
+  const playedOpenings = result.playedOpenings || [];
+  const preparationStatus = result.preparationStatus || false;
 
-    const lossBufferText = document.createElement('span');
-    lossBufferText.id = 'loss-buffer-text';
-    lossBufferText.textContent = lossBuffer;
+  const existingContainer = document.getElementById('active-perks-container');
+  if (existingContainer) existingContainer.remove();
 
-    gladiatorContainer.appendChild(gladiatorIcon);
-    gladiatorContainer.appendChild(lossBufferText);
-    progressBar.prepend(gladiatorContainer);
-}
+  if (activePerks.length === 0) return;
+
+  const container = document.createElement('div');
+  container.id = 'active-perks-container';
+  container.style.display = 'flex';
+  container.style.alignItems = 'center';
+  container.style.marginRight = '10px';
+
+  activePerks.forEach((perk) => {
+    const perkElement = document.createElement('div');
+    perkElement.className = 'active-perk';
+    perkElement.style.display = 'flex';
+    perkElement.style.alignItems = 'center';
+    perkElement.style.marginRight = '8px';
+
+    const icon = document.createElement('img');
+    icon.className = 'active-perk-icon';
+    icon.src = browser.runtime.getURL(`imgs/${perk}.svg`);
+    icon.style.width = '20px';
+    icon.style.height = '20px';
+    perkElement.appendChild(icon);
+
+    let stateText = '';
+    if (perk === 'gladiator') {
+      stateText = `${gladiatorLossBuffer}`;
+    } else if (perk === 'versatility') {
+      stateText = `${playedOpenings.length}`;
+    } else if (perk === 'preparation') {
+      stateText = preparationStatus ? '✓' : '✗';
+    }
+
+    if (stateText) {
+      const state = document.createElement('span');
+      state.className = 'active-perk-state';
+      state.style.marginLeft = '4px';
+      state.textContent = stateText;
+      perkElement.appendChild(state);
+    }
+
+    container.appendChild(perkElement);
+  });
+
+  progressBar.prepend(container);
+};
 
 async function setImageSources() {
   const images = [
@@ -283,7 +300,6 @@ const refreshPerksModalUi = async () => {
   await setActivePerkEventHandler();
   await updatePerksModalContent();
   await updatePerksHeader();
-  await updateProgressBarTooltip();
   await updateProgressBar();
 };
 
@@ -562,94 +578,6 @@ browser.runtime.onMessage.addListener((request) => {
 // register openSettingsModal for chrome
 window.openSettingsModal = openSettingsModal;
 
-export const waitForElm = (selector) => {
-  return new Promise(resolve => {
-    if (document.querySelector(selector)) {
-      return resolve(document.querySelector(selector));
-    }
-
-    const observer = new MutationObserver(mutations => {
-      if (document.querySelector(selector)) {
-        observer.disconnect();
-        resolve(document.querySelector(selector));
-      }
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-  });
-}
-
-let progressBarTooltipInstance = null;
-
-export const updateProgressBarTooltip = async () => {
-  browser.storage.local.get(['activePerks', 'winningStreak', 'gladiatorLossBuffer', 'preparationStatus', 'playedOpenings'], async (result) => {
-    const activePerks = result.activePerks || [];
-    const gladiatorLossBuffer = result.gladiatorLossBuffer || 0;
-    const preparationStatus = result.preparationStatus || false;
-    const playedOpenings = result.playedOpenings || [];
-
-    await waitForElm('#hue-progress-bar');
-
-    const progressBarContainer = document.getElementById('progress-bar-container');
-
-    // Create the tooltip content
-    let tooltipContent;
-    if (activePerks.length === 0) {
-      tooltipContent = '<p>No perks selected. Click the progress bar to select perks!</p>';
-    } else {
-      tooltipContent = '<ul class="progress-perk-tooltip">';
-      activePerks.forEach(perk => {
-        const displayName = PERK_DISPLAY_NAMES[perk] || perk;
-        const svgIcon = browser.runtime.getURL(`imgs/${perk}.svg`);
-        tooltipContent += `<li><img src="${svgIcon}" class="perk-icon" alt="${displayName} icon"/> ${displayName}`;
-        if (perk === 'gladiator') {
-          tooltipContent += ` (Allowed Losses: ${gladiatorLossBuffer})`;
-        } else if (perk === 'preparation') {
-          tooltipContent += ` (${preparationStatus ? 'Fulfilled' : 'Not Fulfilled'})`;
-        } else if (perk === 'versatility') {
-          tooltipContent += ` (Unique Openings: ${playedOpenings.length})`;
-        }
-        tooltipContent += '</li>';
-      });
-      tooltipContent += '</ul>';
-
-      // If Versatility is active, add the playedOpenings list
-      if (activePerks.includes('versatility') && playedOpenings.length) {
-        tooltipContent += '<br><p>Played Openings:</p><ul class="versatility-openings">';
-        playedOpenings.forEach(opening => {
-          tooltipContent += `<li>${opening}</li>`;
-        });
-        tooltipContent += '</ul>';
-      }
-    }
-    
-    if (progressBarTooltipInstance) {
-      progressBarTooltipInstance.destroy();
-    }
-
-    const bodyClass = document.body.classList;
-    let theme = 'light';
-    if (bodyClass.contains('dark')) {
-      theme = 'dark';
-    } else if (bodyClass.contains('transp')) {
-      theme = 'transp';
-    }
-
-    // Initialize tippy.js tooltip
-    progressBarTooltipInstance = tippy(progressBarContainer, {
-      content: tooltipContent,
-      placement: 'bottom',
-      theme: theme,
-      arrow: false,
-      allowHTML: true,
-    });
-  });
-};
-
-
 export const startAnalysisTimer = async (analysisTimeInSeconds) => {
   const preparationStatusMet = await getPreparationStatus();
   if (preparationStatusMet) {
@@ -696,7 +624,7 @@ export const startAnalysisTimer = async (analysisTimeInSeconds) => {
       if (activePerks.includes('preparation')) {
         await setPreparationStatus(true);
         showPerkToast('preparation', 'Preparation: requirement fulfilled');
-        await updateProgressBarTooltip();
+        await paintActivePerks();
       }
     }
   }, 200);
@@ -742,5 +670,4 @@ export const updateHueChessUI = async (state) => {
   await updatePerksModalContent();
   await updatePerksHeader();
   await updateProgressBar();
-  await updateProgressBarTooltip();
 }

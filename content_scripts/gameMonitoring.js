@@ -16,10 +16,9 @@ import {
   updateActivePerks,
 } from "./storageManagement.js";
 import { PREPARATION_TIME } from "./constants.js";
-import { 
-  startAnalysisTimer, 
-  updateProgressBar, 
-  updateProgressBarTooltip
+import {
+  startAnalysisTimer,
+  updateProgressBar
 } from "./uiUpdates.js";
 import * as pgnParser from '@mliebelt/pgn-parser';
 
@@ -180,7 +179,7 @@ export const fetchGameStream = async (playingId, userColor) => {
                       }
                     }
                     await setPlayingId(null);
-                    updateProgressBarTooltip();
+                    updateProgressBar();
                     reader.cancel();
                   }
                 }

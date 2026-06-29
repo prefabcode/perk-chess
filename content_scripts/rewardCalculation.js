@@ -1,8 +1,7 @@
-import { 
-  updateProgressBar,  
+import {
+  updateProgressBar,
   updateHueRotateStyle,
-  updateProgressBarTooltip,
-  updateBoardStyle,   
+  updateBoardStyle,
 } from './uiUpdates.js';
 import { 
   getActivePerks, 
@@ -103,5 +102,5 @@ const cleanupPerkStateOnLevelUp = async () => {
     updateActivePerks('gladiator', false);
   }
   await setPlayedOpenings([]);
-  await updateProgressBarTooltip();
+  await updateProgressBar();
 };
