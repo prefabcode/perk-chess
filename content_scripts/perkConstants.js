@@ -75,10 +75,6 @@ export const PERK_METADATA = [
   },
 ]
 
-export const PERK_DISPLAY_NAMES = Object.fromEntries(
-  PERK_METADATA.map(perk => [perk.internalName, perk.displayName])
-);
-
 export const RANDOMIZER_INDEX = 6;
 
 export const RANDOMIZER_LEVELS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13];

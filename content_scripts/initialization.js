@@ -1,6 +1,5 @@
 import {
-  updateProgressBar,   
-  updateProgressBarTooltip,  
+  updateProgressBar,
   updateHueRotateStyle,
   updateBoardStyle
 } from './uiUpdates.js';
@@ -81,8 +80,7 @@ export const init = async () => {
   updateHueRotateStyle(currentHue);
   
   await updateProgressBar();
-  await updateProgressBarTooltip();
-  
+
   await checkUrlAndStartMonitoring();
   let currentUrl = window.location.href;
 

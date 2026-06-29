@@ -16,7 +16,10 @@ import {
   updateActivePerks,
 } from "./storageManagement.js";
 import { PREPARATION_TIME } from "./constants.js";
-import { startAnalysisTimer, updateProgressBarTooltip } from "./uiUpdates.js";
+import {
+  startAnalysisTimer,
+  updateProgressBar
+} from "./uiUpdates.js";
 import * as pgnParser from '@mliebelt/pgn-parser';
 
 export const getUserColor = () => {
@@ -163,6 +166,7 @@ export const fetchGameStream = async (playingId, userColor) => {
                         const gladiatorLossBuffer = await getGladiatorLossBuffer();
                         if (gladiatorLossBuffer > 0) {
                           await setGladiatorLossBuffer(gladiatorLossBuffer - 1);
+                          await updateProgressBar();
                         } else {
                           await resetGladiatorLossBuffer();
                           await applyGladiatorPenalty();
@@ -175,7 +179,7 @@ export const fetchGameStream = async (playingId, userColor) => {
                       }
                     }
                     await setPlayingId(null);
-                    updateProgressBarTooltip();
+                    updateProgressBar();
                     reader.cancel();
                   }
                 }

@@ -140,35 +140,6 @@
 }
 
 
-.tippy-box .perk-icon {
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  margin-right: 8px;
-}
-  
-
-.tippy-box[data-theme~='light'] .perk-icon {
-  filter: invert(1);
-}
-
-.tippy-box[data-theme~='dark'] .perk-icon,
-.tippy-box[data-theme~='transp'] .perk-icon {
-  filter: invert(0);
-}
-
-.tippy-box .progress-perk-tooltip li + li {
-  margin-top: 7px;
-}
-
-.tippy-box ul.versatility-openings {
-  margin-left: 18px;
-}
-
-.tippy-box ul.versatility-openings li {
-  list-style: disc !important;
-}
-
 #hue-chess-settings-modal {
   width: 500px;
   font-family: 'Roboto', 'Noto Sans', sans-serif;
@@ -294,18 +265,6 @@ cg-board {
   visibility: hidden;
 }
 
-html.transp dialog.hue-modal::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-}
-
 dialog.hue-modal {
     box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);
     border-radius: 6px;
@@ -321,42 +280,128 @@ dialog.hue-modal {
     z-index: 111;
 }
 
-html:not([dir=rtl]) dialog.hue-modal {
-    left: 50%;
+#specialization-container {
+  display: block;
+  text-align: center;
 }
 
-html[dir=rtl] dialog.hue-modal {
-    right: 50%;
-    transform: translate(50%, -50%);
+.active-perk-state {
+  font-size: 0.85em;
+  font-weight: bold;
 }
 
-dialog.hue-modal:has(.dialog-content.alert) {
-    z-index: 200;
+html.light .active-perk-icon {
+  filter: brightness(0);
 }
 
-dialog.hue-modal::backdrop {
-    background: var(--c-page-mask);
-}
 
-dialog.hue-modal > div.scrollable {
-    max-height: calc(var(---viewport-height) - 16px);
-    overflow-x: clip;
-    overflow-y: auto;
-}
+/* Preload Lichess Modal Styles */
 
-dialog.hue-modal div.close-button-anchor {
-    position: relative;
+/* ============================================================
+   SCOPED TO dialog.hue-modal
+   ============================================================ */
+
+html.transp dialog.hue-modal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 0;
+    height: 100%;
+    z-index: -1;
+    backdrop-filter: blur(6px)
+}
+
+dialog.hue-modal {
+    box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22)
 }
 
 dialog.hue-modal button.close-button {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-around
+}
+
+dialog.hue-modal .dialog-content.alert,
+dialog.hue-modal .dialog-content.debug {
+    display: flex;
+    flex-flow: column
+}
+
+dialog.hue-modal {
+    border-radius: 6px
+}
+
+body:has(dialog.hue-modal.touch-scroll) {
+    overflow: hidden !important
+}
+
+dialog.hue-modal {
+    position: fixed;
+    max-height: 100%;
+    max-width: 100%;
+    top: 50%
+}
+
+html:not([dir=rtl]) dialog.hue-modal {
+    left: 50%
+}
+
+html[dir=rtl] dialog.hue-modal {
+    right: 50%
+}
+
+dialog.hue-modal {
+    transform: translate(-50%, -50%)
+}
+
+html[dir=rtl] dialog.hue-modal {
+    transform: translate(50%, -50%)
+}
+
+dialog.hue-modal {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: var(--c-bg-high);
+    z-index: 111
+}
+
+dialog.hue-modal:has(.dialog-content.alert) {
+    z-index: 200
+}
+
+dialog.hue-modal::backdrop {
+    background: var(--c-page-mask)
+}
+
+dialog.hue-modal > div.scrollable {
+    max-height: calc(var(---viewport-height) - 16px);
+    overflow-x: clip;
+    overflow-y: auto
+}
+
+dialog.hue-modal div.close-button-anchor {
+    position: relative;
+    width: 100%;
+    height: 0
+}
+
+dialog.hue-modal button.close-button {
     position: absolute;
-    top: 4px;
+    top: 4px
+}
+
+html:not([dir=rtl]) dialog.hue-modal button.close-button {
+    right: 4px
+}
+
+html[dir=rtl] dialog.hue-modal button.close-button {
+    left: 4px
+}
+
+dialog.hue-modal button.close-button {
     width: 40px;
     height: 40px;
     z-index: 112;
@@ -366,50 +411,78 @@ dialog.hue-modal button.close-button {
     border: 1px solid var(--c-border);
     font-size: 20px;
     text-align: center;
-    cursor: pointer;
+    cursor: pointer
 }
 
 dialog.hue-modal button.close-button:not(:focus) {
-    outline: none;
-}
-
-html:not([dir=rtl]) dialog.hue-modal button.close-button {
-    right: 4px;
-}
-
-html[dir=rtl] dialog.hue-modal button.close-button {
-    left: 4px;
+    outline: none
 }
 
 dialog.hue-modal:not(.touch-scroll) {
     margin-top: 16px;
-    overflow: visible;
+    overflow: visible
 }
 
 dialog.hue-modal:not(.touch-scroll) button.close-button {
-    transform: translate(18px, -18px);
+    transform: translate(18px, -18px)
+}
+
+html[dir=rtl] dialog.hue-modal:not(.touch-scroll) button.close-button {
+    transform: translate(-18px, -18px)
+}
+
+dialog.hue-modal:not(.touch-scroll) button.close-button {
     width: 32px;
     height: 32px;
     font-size: 16px;
     border-radius: 50%;
-    border: none;
-}
-
-html[dir=rtl] dialog.hue-modal:not(.touch-scroll) button.close-button {
-    transform: translate(-18px, -18px);
+    border: none
 }
 
 dialog.hue-modal:not(.touch-scroll) button.close-button:hover {
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),
-                0 3px 1px -2px rgba(0,0,0,.2),
-                0 1px 5px 0 rgba(0,0,0,.12);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
     background: var(--c-bad);
-    color: #fff;
+    color: #fff
 }
 
-#specialization-container {
-  display: block;
-  text-align: center;
+dialog.hue-modal .dialog-content {
+    text-align: center;
+    padding: 2em;
+    color: var(--c-font)
+}
+
+dialog.hue-modal .dialog-content.alert,
+dialog.hue-modal .dialog-content.debug {
+    gap: 2em;
+    width: unset;
+    height: unset;
+    border-radius: 6px;
+    border: 3px solid var(--c-primary)
+}
+
+dialog.hue-modal .dialog-content.alert {
+    width: 480px;
+    max-width: 100%;
+    font-size: 16px
+}
+
+dialog.hue-modal .dialog-content.alert span {
+    display: flex;
+    gap: 2em;
+    justify-content: end
+}
+
+dialog.hue-modal.touch-scroll .dialog-content.alert span {
+    justify-content: space-around
+}
+
+dialog.hue-modal .dialog-content.alert input {
+    align-self: center;
+    width: min(40ch,90%)
+}
+
+dialog.hue-modal .dialog-content.alert .invalid {
+    background-color: var(--m-bad_bg--mix-30)
 }
 
 #reroll-perks-btn {
