@@ -179,7 +179,7 @@ async function setImageSources() {
     'preparation-icon',
     'opportunist-icon',
     'versatility-icon',
-    'knight-moves-icon',
+    'hypermodern-icon',
     'aggression-icon',
     'kings-gambit-icon',
   ];
