@@ -26,7 +26,7 @@ export function showPerkToast(perkId, message) {
     'preparation': 'linear-gradient(to right, #093a5e, #0077b6)',
     'opportunist': 'linear-gradient(to right, #daa520, #b8860b)',
     'versatility': 'linear-gradient(to right, #8e44ad, #f39c12)',
-    'hypermodern': 'linear-gradient(to right, #0b3d91, #6a1b9a)',
+    'hypermodern': 'linear-gradient(to right, #18371e, #6b8e23)',
     'aggression': 'linear-gradient(to right, #d50000, #ff6f00)',
     'kings-gambit': 'linear-gradient(to right, #a50034, #88113f)'
   };
