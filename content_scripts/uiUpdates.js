@@ -424,10 +424,15 @@ export const updatePerksModalContent = async () => {
     document.getElementById('current-level').innerText = playerLevel;
     document.getElementById('hue-points').innerText = huePoints;
 
-    if (prestige) {
-      const prestigeContainer = document.getElementById('prestige-container');
-      prestigeContainer.innerText = `| Prestige: ${prestige}`;
-      prestigeContainer.style.display = 'inline';
+    const emblem = document.getElementById('prestige-emblem');
+    if (prestige >= 1) {
+      const emblemIndex = ((prestige - 1) % 5) + 1;
+      document.getElementById('prestige-emblem-img').src =
+        browser.runtime.getURL(`imgs/prestige/prestige-${emblemIndex}.png`);
+      document.getElementById('prestige-emblem-label').textContent = `Prestige ${prestige}`;
+      emblem.style.display = 'flex';
+    } else {
+      emblem.style.display = 'none';
     }
 
     // Set active perks and handle locked perks
