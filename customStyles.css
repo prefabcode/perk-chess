@@ -214,8 +214,26 @@
   margin-bottom: 10px;
 }
 
-#hue-chess-perks-modal #perk-progress-info #prestige-container {
-  display: none;
+#hue-chess-perks-modal #prestige-emblem {
+  position: absolute;
+  top: 20px;
+  left: 45px;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 1;
+}
+
+#hue-chess-perks-modal #prestige-emblem-img {
+  width: 96px;
+  height: 96px;
+}
+
+#hue-chess-perks-modal #prestige-emblem-label {
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 14px;
 }
 
 #hue-chess-perks-modal .flash {
