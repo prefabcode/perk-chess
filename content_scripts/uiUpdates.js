@@ -43,20 +43,18 @@ export const updateProgressBar = () => {
         progressBar.id = 'hue-progress-bar';
         progressBar.style.display = 'flex';
         progressBar.style.alignItems = 'center';
-        progressBar.style.margin = '0 10px';
-        progressBar.style.flexGrow = '1';
-        progressBar.style.justifyContent = 'flex-end'; 
+        progressBar.style.marginLeft = 'auto';
+        progressBar.style.marginRight = '10px';
   
         const progressBarContainer = document.createElement('div');
         progressBarContainer.id = 'progress-bar-container';
         progressBarContainer.style.display = 'flex';
         progressBarContainer.style.alignItems = 'center';
-        progressBarContainer.style.width = '240px';
         progressBarContainer.style.cursor = 'pointer';
   
         const progressBarOuter = document.createElement('div');
         progressBarOuter.id = 'progress-bar-outer';
-        progressBarOuter.style.flexBasis = '180px';
+        progressBarOuter.style.width = '180px';
         progressBarOuter.style.height = '10px';
         progressBarOuter.style.borderRadius = '5px';
         progressBarOuter.style.backgroundColor = '#8c8c8c';
@@ -165,7 +163,8 @@ const paintActivePerks = async () => {
     container.appendChild(perkElement);
   });
 
-  progressBar.prepend(container);
+  const barContainer = progressBar.querySelector('#progress-bar-container');
+  if (barContainer) barContainer.prepend(container);
 };
 
 async function setImageSources() {
