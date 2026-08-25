@@ -57,13 +57,11 @@ export const updateProgressBar = () => {
         progressBarOuter.style.width = '180px';
         progressBarOuter.style.height = '10px';
         progressBarOuter.style.borderRadius = '5px';
-        progressBarOuter.style.backgroundColor = '#8c8c8c';
-  
+
         const progressFill = document.createElement('div');
         progressFill.id = 'progress-fill';
         progressFill.style.height = '100%';
         progressFill.style.borderRadius = '5px';
-        progressFill.style.backgroundColor = 'hsl(88, 62%, 37%)';
         progressFill.style.width = `${progress}%`;
   
         progressBarOuter.appendChild(progressFill);
@@ -89,15 +87,6 @@ export const updateProgressBar = () => {
         const levelText = document.getElementById('level-text');
         progressFill.style.width = `${progress}%`;
         levelText.textContent = `Level ${level}`;
-      }
-
-      // Adapt to light and dark modes
-      const isDarkMode = document.body.classList.contains('dark') || document.body.classList.contains('transp');
-      if (isDarkMode) {
-        const progressBarOuter = progressBar.querySelector('#progress-bar-outer');
-        const progressFill = progressBar.querySelector('#progress-fill');
-        progressFill.style.backgroundColor = '#f7f7f7';
-        progressBarOuter.style.backgroundColor = 'hsl(37, 5%, 22%)';
       }
 
       await paintActivePerks();
@@ -464,17 +453,9 @@ export const updatePerksModalContent = async () => {
     // Destroy existing Tippy instances
     tippy('.perk-box').forEach(instance => instance.destroy());
 
-    const bodyClass = document.body.classList;
-    let theme = 'light';
-    if (bodyClass.contains('dark')) {
-      theme = 'dark';
-    } else if (bodyClass.contains('transp')) {
-      theme = 'transp';
-    }
-
     // Initialize Tippy.js tooltips
     tippy('.perk-box', {
-      theme: theme,
+      theme: 'hue-chess',
       appendTo: () => document.querySelector('#hue-chess-perks-modal'),
       placement: 'bottom-start',
       maxWidth: 200,
