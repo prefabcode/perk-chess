@@ -126,17 +126,24 @@
   line-height: 1.4;
 }
 
-.tippy-box[data-theme~='light'] {
+.tippy-box[data-theme~='hue-chess'] {
+  background-color: hsl(37, 10%, 8%);
+  color: white;
+  border: 1px solid hsl(37, 12%, 16%);
+}
+
+.tippy-box[data-theme~='hue-chess'] > .tippy-arrow {
+  color: hsl(37, 10%, 8%);
+}
+
+html.light .tippy-box[data-theme~='hue-chess'] {
   background-color: hsl(37, 10%, 92%);
   color: black;
   border: 1px solid hsl(37, 12%, 84%);
 }
 
-.tippy-box[data-theme~='dark'], 
-.tippy-box[data-theme~='transp'] {
-  background-color: hsl(37, 10%, 8%);
-  color: white;
-  border: 1px solid hsl(37, 12%, 16%);
+html.light .tippy-box[data-theme~='hue-chess'] > .tippy-arrow {
+  color: hsl(37, 10%, 92%);
 }
 
 
@@ -312,6 +319,22 @@ html.light .active-perk-icon {
   filter: brightness(0);
 }
 
+#progress-bar-outer {
+  background-color: hsl(37, 5%, 22%);
+}
+
+#progress-fill {
+  background-color: #f7f7f7;
+}
+
+html.light #progress-bar-outer {
+  background-color: #8c8c8c;
+}
+
+html.light #progress-fill {
+  background-color: hsl(88, 62%, 37%);
+}
+
 body.zen #hue-progress-bar {
   justify-content: center !important;
 }
@@ -323,7 +346,7 @@ body.zen #hue-progress-bar {
    SCOPED TO dialog.hue-modal
    ============================================================ */
 
-html.transp dialog.hue-modal::before {
+dialog.hue-modal::before {
     content: "";
     position: absolute;
     top: 0;
