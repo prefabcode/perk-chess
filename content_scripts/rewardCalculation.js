@@ -14,9 +14,11 @@ import {
   setCurrentHue,
   getCompletedBoards,
   setCompletedBoards,
-  incrementPrestige
+  incrementPrestige,
+  getPrestige
 } from './storageManagement.js';
 import { calculatePerkBonuses } from './perks.js';
+import { emitStreamerEvent } from './streamerEvents.js';
 import {
   GLADIATOR_PENALTY, 
   LEVEL_CAP, 
@@ -72,10 +74,12 @@ export const incrementHue = async (game) => {
     let completedBoards = await getCompletedBoards() + 1;
     if (completedBoards >= LEVEL_CAP) {
       await incrementPrestige();
+      emitStreamerEvent({ type: 'prestige', prestige: await getPrestige() });
       await resetProgress();
       return;
     }
     await setCompletedBoards(completedBoards);
+    emitStreamerEvent({ type: 'levelup', level: completedBoards + 1 });
     updateBoardStyle(completedBoards);
     await cleanupPerkStateOnLevelUp();
   }

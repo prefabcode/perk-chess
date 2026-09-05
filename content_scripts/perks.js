@@ -9,29 +9,14 @@ import {
   setPlayedOpenings,
 } from "./storageManagement.js";
 import { materialValues, browser } from "./constants.js";
+import { PERK_GRADIENTS } from "./perkConstants.js";
+import { emitStreamerEvent } from "./streamerEvents.js";
 import Toastify from 'toastify-js';
 
 export function showPerkToast(perkId, message) {
-  const gradientMap = {
-    'berserker': 'linear-gradient(to right, #8b0000, #ff0000)',
-    'bongcloud': 'linear-gradient(to right, #a18cd1, #fbc2eb)',
-    'hue-focus': 'linear-gradient(to right, #43cea2, #185a9d)',
-    'gambiteer': 'linear-gradient(to right, #4a148c, #880e4f)',
-    'endgame-specialist': 'linear-gradient(to right, #00c6ff, #0072ff)',
-    'hot-streak': 'linear-gradient(to right, #f12711, #f5af19)',
-    'gladiator': 'linear-gradient(to right, #434343, #000000)',
-    'equalizer': 'linear-gradient(to right, #1b5e20, #4a9e4d)',
-    'rivalry': 'linear-gradient(to right, #7f1d1d, #c0392b)',
-    'total-earned': 'linear-gradient(to right, #0f2027, #2c5364)',
-    'preparation': 'linear-gradient(to right, #093a5e, #0077b6)',
-    'opportunist': 'linear-gradient(to right, #daa520, #b8860b)',
-    'versatility': 'linear-gradient(to right, #8e44ad, #f39c12)',
-    'hypermodern': 'linear-gradient(to right, #18371e, #6b8e23)',
-    'aggression': 'linear-gradient(to right, #d50000, #ff6f00)',
-    'kings-gambit': 'linear-gradient(to right, #a50034, #88113f)'
-  };
+  emitStreamerEvent({ type: 'toast', perkId, message });
 
-  const gradient = gradientMap[perkId];
+  const gradient = PERK_GRADIENTS[perkId];
   const imageUrl = perkId !== 'total-earned' ? browser.runtime.getURL(`imgs/${perkId}.svg`) : '';
 
   Toastify({

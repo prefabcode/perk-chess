@@ -506,6 +506,10 @@ const openSettingsModal = async () => {
 
     document.getElementById('reset-progress').addEventListener('click', confirmResetProgress);
 
+    document.getElementById('open-streamer-overlay').addEventListener('click', () => {
+      browser.runtime.sendMessage({ action: 'openStreamerOverlay' });
+    });
+
     if (process.env.NODE_ENV !== 'production') {
       document.getElementById('dev-tools').style.display = 'block';
 

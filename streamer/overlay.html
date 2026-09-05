@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Perk Chess — Streamer Overlay</title>
+  <link rel="stylesheet" href="overlay.css">
+</head>
+<body>
+  <div id="overlay" class="overlay">
+
+    <aside class="panel panel--left">
+      <section class="identity">
+        <div id="prestige" class="prestige" hidden>
+          <img id="prestige-img" class="prestige__img" alt="">
+          <span id="prestige-label" class="prestige__label"></span>
+        </div>
+
+        <div class="level">
+          <span class="level__word">Level</span>
+          <span id="level-value" class="level__value">1</span>
+        </div>
+
+        <div class="xp">
+          <div class="xp__track">
+            <div id="xp-fill" class="xp__fill"></div>
+          </div>
+          <div class="xp__row">
+            <span id="xp-value" class="xp__value">0 / 100</span>
+            <span id="streak" class="xp__streak" hidden></span>
+          </div>
+        </div>
+
+        <div id="specialization" class="spec" hidden>
+          <span class="spec__label">Specialization</span>
+          <span id="spec-value" class="spec__value"></span>
+        </div>
+      </section>
+
+      <div class="left-mid">
+        <section id="next-unlock" class="next">
+          <div class="next__head">
+            <span id="next-kicker" class="next__kicker">Next unlock</span>
+            <span id="next-level" class="next__level"></span>
+          </div>
+          <div class="next__body">
+            <img id="next-icon" class="next__icon" alt="">
+            <div class="next__text">
+              <span id="next-name" class="next__name"></span>
+              <span id="next-objective" class="next__objective"></span>
+            </div>
+          </div>
+          <div id="next-away" class="next__away"></div>
+        </section>
+
+        <div id="banner" class="banner" hidden></div>
+      </div>
+
+      <section id="camera" class="camera">
+        <div class="camera__frame"></div>
+        <div id="camera-name" class="camera__name" hidden></div>
+      </section>
+    </aside>
+
+    <div id="board-slot" class="board-slot"></div>
+
+    <aside class="panel panel--right">
+      <div id="clock-top" class="clock clock--top">
+        <span class="clock__who">Opponent</span>
+        <span id="clock-top-time" class="clock__time">--:--</span>
+      </div>
+
+      <div id="perks" class="perks"></div>
+
+      <div id="clock-bottom" class="clock clock--bottom">
+        <span class="clock__who">You</span>
+        <span id="clock-bottom-time" class="clock__time">--:--</span>
+      </div>
+
+      <div id="toasts" class="toasts"></div>
+    </aside>
+
+    <div id="guides" class="guides" hidden>
+      <div id="guide-board" class="guide"><span class="guide__label"></span></div>
+      <div id="guide-camera" class="guide"><span class="guide__label"></span></div>
+    </div>
+
+  </div>
+
+  <script src="overlay-bundle.js"></script>
+</body>
+</html>

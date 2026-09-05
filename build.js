@@ -39,6 +39,16 @@ function copyFolderRecursiveSync(source, target) {
   }
 }
 
+// the overlay also runs in OBS's CEF, where constants.js's `browser` shim
+// self-references an undeclared identifier and throws at module evaluation
+function assertNoBrowserShim(bundlePath) {
+  const source = fs.readFileSync(bundlePath, 'utf8');
+  if (source.includes('typeof chrome')) {
+    console.error(`ERROR: ${path.basename(bundlePath)} reached constants.js; it must stay free of the browser shim`);
+    process.exit(1);
+  }
+}
+
 const buildDirChrome = path.join(__dirname, 'build-chrome');
 const buildDirFirefox = path.join(__dirname, 'build-firefox');
 
@@ -80,6 +90,30 @@ function buildForChrome() {
     copyFileSync(sourceFile, path.join(buildDirChrome, file));
   });
   console.log('html files copied into chrome build directory');
+
+  const streamerDirChrome = path.join(buildDirChrome, 'streamer');
+  ensureDirSync(streamerDirChrome);
+
+  const overlayBundle = path.join(streamerDirChrome, 'overlay-bundle.js');
+  esbuild.build({
+    entryPoints: ['streamer/overlay.js'],
+    bundle: true,
+    outfile: overlayBundle
+  }).then(() => assertNoBrowserShim(overlayBundle)).catch(() => process.exit(1));
+  console.log('overlay-bundle.js created for chrome');
+
+  esbuild.build({
+    entryPoints: ['streamer/overlayLive.js'],
+    bundle: true,
+    outfile: path.join(streamerDirChrome, 'overlay-live.js')
+  }).catch(() => process.exit(1));
+  console.log('overlay-live.js created for chrome');
+
+  ['overlay.html', 'overlay.css'].forEach(file => {
+    copyFileSync(path.join(__dirname, 'streamer', file),
+      path.join(streamerDirChrome, file));
+  });
+  console.log('streamer overlay files copied into chrome build directory');
 
   copyFileSync(path.join(__dirname, 'chrome-manifest.json'),
     path.join(buildDirChrome, 'manifest.json'));
