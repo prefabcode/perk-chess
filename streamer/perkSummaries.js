@@ -8,7 +8,7 @@ export const PERK_SUMMARIES = {
     xp: '+4-5',
   },
   'hypermodern': {
-    objective: 'Win without a centre pawn in four moves',
+    objective: 'Win without a centre pawn in three moves',
     xp: '+3-5',
   },
   'preparation': {
