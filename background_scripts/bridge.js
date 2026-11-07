@@ -1,10 +1,9 @@
 import { browser } from '../content_scripts/constants.js';
-import { buildState, STREAMER_STATE_KEYS } from '../streamer/state.js';
+import { buildState, STREAMER_STATE_KEYS, STREAMER_TRANSIENT_TYPES } from '../streamer/state.js';
 import { getObsSettings, OBS_SETTING_KEYS } from '../streamer/obsSettings.js';
 import { applyObsSettings, emitToObs } from './obsClient.js';
 
 const HEARTBEAT_MS = 3000;
-const TRANSIENT_TYPES = ['toast', 'clock', 'levelup', 'prestige'];
 
 let started = false;
 
@@ -28,7 +27,7 @@ export const startBridge = () => {
   });
 
   browser.runtime.onMessage.addListener((message) => {
-    if (message?.v === 1 && TRANSIENT_TYPES.includes(message.type)) emitToObs(message);
+    if (message?.v === 1 && STREAMER_TRANSIENT_TYPES.includes(message.type)) emitToObs(message);
   });
 
   setInterval(publishState, HEARTBEAT_MS);

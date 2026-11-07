@@ -1,7 +1,5 @@
 import { browser } from '../content_scripts/constants.js';
-import { buildState, STREAMER_STATE_KEYS } from './state.js';
-
-const TRANSIENT_TYPES = ['toast', 'clock', 'levelup', 'prestige'];
+import { buildState, STREAMER_STATE_KEYS, STREAMER_TRANSIENT_TYPES } from './state.js';
 
 const dispatch = (payload) => {
   window.dispatchEvent(new CustomEvent('hue-chess', { detail: payload }));
@@ -22,7 +20,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 browser.runtime.onMessage.addListener((message) => {
-  if (message?.v === 1 && TRANSIENT_TYPES.includes(message.type)) {
+  if (message?.v === 1 && STREAMER_TRANSIENT_TYPES.includes(message.type)) {
     dispatch(message);
   }
 });

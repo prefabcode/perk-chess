@@ -3,7 +3,9 @@
   --accent: hsl(var(--hue-deg) 72% 60%);
   --accent-soft: hsl(var(--hue-deg) 72% 60% / 0.18);
 
-  --surface: hsl(37 10% 8% / 0.92);
+  --page: hsl(37 10% 8%);
+  --page-gradient: hsl(37 12% 16%);
+  --surface: hsl(37 7% 14%);
   --surface-raised: hsl(37 12% 16% / 0.94);
   --border: hsl(37 12% 24%);
   --text: #f7f7f7;
@@ -12,7 +14,7 @@
 
   --board-size: min(86vh, 900px);
   --camera-aspect: 16 / 9;
-  --clock-h: 6.4rem;
+  --clock-h: 6.6rem;
 
   --pad: 1.6rem;
   --gap: 1rem;
@@ -38,7 +40,7 @@ body {
   color: var(--text);
   font-family: 'Roboto', 'Noto Sans', -apple-system, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
-  background: hsl(37 10% 5%);
+  background: var(--page);
 }
 
 .overlay {
@@ -47,17 +49,20 @@ body {
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr var(--board-size) 1fr;
-  background-color: hsl(37 10% 8%);
-  background-image: linear-gradient(rgba(0, 0, 0, .32), rgba(0, 0, 0, .32)), var(--bg-image, none);
+  background: var(--page) linear-gradient(to bottom, var(--page-gradient), var(--page) 116px) no-repeat;
+}
+
+.overlay.has-image {
+  background-image: linear-gradient(rgba(0, 0, 0, .32), rgba(0, 0, 0, .32)), var(--bg-image);
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
 }
 
 .overlay.is-bare {
   background-color: transparent;
   background-image: repeating-conic-gradient(hsl(0 0% 17%) 0% 25%, hsl(0 0% 12%) 0% 50%);
   background-size: 48px 48px;
+  background-repeat: repeat;
 }
 
 .overlay.is-fixed {
@@ -386,10 +391,26 @@ body {
 
 .clock__who {
   font-size: .95rem;
+  line-height: 1.3rem;
   font-weight: 700;
   letter-spacing: .2em;
   text-transform: uppercase;
   color: var(--text-dim);
+}
+
+.clock__who.has-player {
+  font-size: 1.15rem;
+  letter-spacing: .02em;
+  text-transform: none;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clock__title {
+  margin-right: .35em;
+  color: #bf811d;
 }
 
 .clock__time {

@@ -20,6 +20,7 @@ const STATE_KEYS = [
 ];
 
 export const STREAMER_STATE_KEYS = STATE_KEYS;
+export const STREAMER_TRANSIENT_TYPES = ['toast', 'clock', 'players', 'levelup', 'prestige'];
 
 const readState = () => new Promise((resolve) => {
   browser.storage.local.get(STATE_KEYS, resolve);

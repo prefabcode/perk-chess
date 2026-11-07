@@ -7,7 +7,6 @@ import {
 import { PERK_SUMMARIES } from './perkSummaries.js';
 
 const IMG_BASE = '../imgs';
-const DEFAULT_BG = 'https://lichess1.org/assets/hashed/bg27.3214f8d2.webp';
 const FALLBACK_GRADIENT = 'linear-gradient(to right, #37474f, #263238)';
 const TOAST_MS = 6000;
 const TOAST_LIMIT = 5;
@@ -50,8 +49,10 @@ const dom = {
   cameraFrame: document.querySelector('.camera__frame'),
   boardSlot: el('board-slot'),
   clockTop: el('clock-top'),
+  clockTopWho: el('clock-top-who'),
   clockTopTime: el('clock-top-time'),
   clockBottom: el('clock-bottom'),
+  clockBottomWho: el('clock-bottom-who'),
   clockBottomTime: el('clock-bottom-time'),
   perks: el('perks'),
   toasts: el('toasts'),
@@ -99,11 +100,13 @@ function layout() {
 
 function applyBackground() {
   const requested = params.get('bg');
+  if (!requested) return;
   if (requested === 'none') {
     dom.overlay.classList.add('is-bare');
     return;
   }
-  dom.root.style.setProperty('--bg-image', `url("${requested || DEFAULT_BG}")`);
+  dom.root.style.setProperty('--bg-image', `url("${requested}")`);
+  dom.overlay.classList.add('has-image');
 }
 
 function renderGuides() {
@@ -280,6 +283,25 @@ function tickClocks() {
   requestAnimationFrame(tickClocks);
 }
 
+/* ---------- players ---------- */
+
+function paintPlayer(node, player, fallback) {
+  node.classList.toggle('has-player', Boolean(player));
+  if (!player) {
+    node.textContent = fallback;
+    return;
+  }
+
+  const parts = [h('span', 'clock__name', player.name)];
+  if (player.title) parts.unshift(h('span', 'clock__title', player.title));
+  node.replaceChildren(...parts);
+}
+
+function renderPlayers(payload) {
+  paintPlayer(dom.clockTopWho, payload.top, 'Opponent');
+  paintPlayer(dom.clockBottomWho, payload.bottom, 'You');
+}
+
 /* ---------- transient ---------- */
 
 function pushToast({ perkId, message }) {
@@ -345,6 +367,9 @@ function handlePayload(payload) {
     case 'clock':
       syncClock(payload);
       break;
+    case 'players':
+      renderPlayers(payload);
+      break;
     case 'toast':
       pushToast(payload);
       break;
@@ -375,6 +400,8 @@ function startDemo() {
     perkCount: number('perks', 2),
     streak: number('streak', 3),
     perks: [{ id: 'gladiator', badge: 3 }, { id: 'versatility', badge: 5 }],
+    opponent: params.get('opponent') || 'PawnStorm',
+    showNames: params.get('names') !== '0',
   };
 
   const nextUnlockFor = (level, specIndex) => {
@@ -405,6 +432,14 @@ function startDemo() {
     winningStreak: demo.streak,
     inGame: true,
     preparationMet: false,
+  });
+
+  const publishPlayers = () => handlePayload({
+    v: 1,
+    type: 'players',
+    ts: Date.now(),
+    top: demo.showNames ? { name: demo.opponent, title: 'FM' } : null,
+    bottom: demo.showNames ? { name: 'HueChessPlayer', title: null } : null,
   });
 
   const clock = { top: 154, bottom: 118, running: 'bottom' };
@@ -466,6 +501,10 @@ function startDemo() {
         demo.prestige = demo.prestige > 0 ? 0 : 2;
         publish();
         break;
+      case 'n':
+        demo.showNames = !demo.showNames;
+        publishPlayers();
+        break;
       case 'arrowup':
         demo.hue = (demo.hue + 5) % 100;
         publish();
@@ -478,6 +517,7 @@ function startDemo() {
   });
 
   publish();
+  publishPlayers();
 }
 
 /* ---------- boot ---------- */
