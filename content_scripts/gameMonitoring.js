@@ -211,6 +211,9 @@ export const fetchGameStream = async (playingId, userColor) => {
   }
 };
 
+const getGameIdFromPath = () =>
+  window.location.pathname.match(/^\/game\/([a-zA-Z0-9]{8})/)?.[1] ?? null;
+
 export const isPlayingGame = () => {
   return new Promise((resolve, reject) => {
     const userTag = document.getElementById('user_tag');
@@ -233,8 +236,7 @@ export const isPlayingGame = () => {
       .then(data => {
         if (data && data.length > 0) {
           const userStatus = data[0];
-          const currentGameId = window.location.pathname.split('/')[1];
-          const isPlaying = userStatus.playing && currentGameId.includes(userStatus.playingId);
+          const isPlaying = userStatus.playing && getGameIdFromPath() === userStatus.playingId;
 
           if (isPlaying) {
             setPlayingId(userStatus.playingId).then(() => {
@@ -268,10 +270,8 @@ export const monitorGame = async () => {
 };
 
 export const checkUrlAndStartMonitoring = async () => {
-  const url = window.location.href;
   const activePerks = await getActivePerks();
-  const gameIdPattern = /https:\/\/lichess\.org\/[a-zA-Z0-9]{8,}/;
-  if (gameIdPattern.test(url)) {
+  if (getGameIdFromPath()) {
     isPlayingGame().then((isPlaying) => {
       if (isPlaying) {
         monitorGame();
